@@ -1,14 +1,19 @@
 import { useState } from 'react'
 import './App.css'
-import Welcome from './landingPage/Welcome'
+import WelcomeImage from './landingPage/WelcomeImage'
 
 
 function App() {
 
   return (
     <>
-    <div className='landingPage'>
-    <Welcome />
+    <div>
+      <div className='landingPage'>
+    <WelcomeImage />
+    
+    </div>
+
+
     </div>
     </>
   )
