@@ -22,8 +22,10 @@ body,
 } */
 
 
-.rightText {
-  font-size: 1.5rem;
+.left {
+  display: flex;
+flex-direction:column;
+  justify-content: center;
 }
 
 img {
@@ -38,5 +40,20 @@ img {
     flex-direction: row;
     justify-content: space-between;
   background-size: cover;
+  line-height: 2rem;
+  font-size: 1.5rem;
 
+}
+
+button{
+  text-decoration: none;
+    /* border: 1px solid red; */
+    border: none;
+
+}
+
+button:hover{
+  text-decoration: none;
+   background-color:#cfd11a ;
+cursor: pointer;
 }
