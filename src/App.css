@@ -1,3 +1,4 @@
+/* Reset */
 * {
   padding: 0;
   margin: 0;
@@ -9,90 +10,236 @@ body,
 #root {
   width: 100%;
   height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fff;
+  color: #111;
 }
 
 #root {
-  padding: 5%;
+  padding: 2%;
 }
-
-/* styling the landing page nav bar.. */
 
 nav {
-  height: 15%;
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 1.5rem;
-  margin-bottom: 5%;
-  margin-top: -5%;
-}
-
-.welcomePage {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.rightNav {
-  display: flex;
-  flex-direction: row;
-  width: 25%;
-}
-ul {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
   justify-content: space-between;
   align-items: center;
-  font-size: 1rem;
+  padding: 1.5rem 2rem;
+  font-size: 1.3rem;
+  background-color: #fff;
+}
+
+.logo h2 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.rightNav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.rightNav ul li {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.rightNav ul li:hover {
+  color: #7dbb42; /* hover color */
 }
 
 .hero {
   width: 100%;
-  height: 75vh;
+  min-height: 75vh;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
 }
 
 .heroText {
-  width: 40%;
-  height: 100%;
+  flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: start;
   flex-direction: column;
-  gap: 5rem;
+  gap: 2rem;
+  max-width: 600px;
 }
 
-.heroImage {
-  width: 60%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.heroText h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
+
+.heroText p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
 .getStartedButton {
-  gap: -1.5rem;
+  padding: 0.8rem 2rem;
   border: none;
-  background-color: white;
+  background-color: #7dbb42;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 6px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .getStartedButton:hover {
-  border: #cfd11a;
-  background-color: #befe75;
-  cursor: pointer;
-  font-size: 1.5rem;
-  transition: 0.3s;
+  background-color: #5a9b2f;
+  transform: scale(1.05);
+}
+
+.heroImage {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.landingImage {
+  width: 80%;
+  max-width: 450px;
+  z-index: 1;
+}
+
+.circleTop {
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #DBFA87;
+  z-index: 0;
+}
+
+.circles {
+  display: flex;
+  gap: 0.5rem;
+  padding: 2rem;
+}
+
+.circles hr {
+  border: none;
+  border-radius: 50%;
+  background-color: #DBFA87;
 }
 
 .footerLandingPage {
   width: 100%;
-  height: 10vh;
-  display: flex;
-  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid #ddd;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #555;
 }
 
-button {
+
+/* .signUpForm {
+  border: 1px solid red;
+  height: 70vh;
+}
+
+.SignUpNav {
+    height: 5vh;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+.leftArrow {
   border: none;
   background-color: white;
+  font-size: 2rem;
+  cursor: pointer;
+} */
+
+.signUpPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 80vh;
 }
+
+.signUpNav {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.leftArrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.signUpForm {
+  width: 100%;
+  max-width: 400px;
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.signUpForm h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.formGroup label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.authButton {
+  background-color: #7dbb42;
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.authButton:hover {
+  background-color: #5a9b2f;
+}
+
+.toggleText {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.toggleText span {
+  color: #7dbb42;
+  font-weight: bold;
+  cursor: pointer;
+}
+

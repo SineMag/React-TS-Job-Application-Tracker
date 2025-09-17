@@ -1,25 +1,29 @@
-import { useState } from "react";
 import "./App.css";
-import WelcomeImage from "./components/WelcomePage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import WelcomePage from "./components/WelcomePage";
 import Footer from "./components/Footer";
+import SignUpPage from "./components/SignUpPage";
 
 function App() {
   return (
-    <>
-      <div>
-        {/* the landing page section  */}
-        <div className="landingPage">
-          <div>
-            <WelcomeImage />
-          </div>
-          <div className="footerLandingPage">
-            <Footer>
-              &copy; ReactTS Job Application Tracker | Sinenhlanhla Magubane
-            </Footer>
-          </div>
-        </div>
+    <Router>
+      <div className="landingPage">
+        {/* landing page */}
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/about" element={<h2>About Page</h2>} />
+          <Route path="/contact" element={<h2>Contact Page</h2>} />
+          
+          <Route path="/signup" element={<SignUpPage/>} />
+          <Route >
+            {/* sign-up or sign-in page  */}
+
+          </Route>
+        </Routes>
+        <Footer />
       </div>
-    </>
+
+    </Router>
   );
 }
 
