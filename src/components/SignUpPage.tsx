@@ -4,19 +4,20 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (isLogin) {
-      console.log("Logging in:", { email, password });
-      // TODO: Hook up login API
+      console.log("Logging in:", {name, email, password });
+      //  Hook up login API
     } else {
-      console.log("Signing up:", { email, password });
-      // TODO: Hook up signup API
+      console.log("Signing up:", {name, email, password });
+      //  Hook up signup API
     }
 
     setEmail("");
@@ -37,6 +38,17 @@ export default function SignUpPage() {
         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
 
         <form onSubmit={handleSubmit}>
+          <div className="formGroup">
+            <label>Full Name</label>
+            <input
+              type="name"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+
           <div className="formGroup">
             <label>Email</label>
             <input
