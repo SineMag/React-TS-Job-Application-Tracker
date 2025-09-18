@@ -1,13 +1,22 @@
 {
-  "posts": [
-    { "id": "1", "title": "a title", "views": 100 },
-    { "id": "2", "title": "another title", "views": 200 }
-  ],
-  "comments": [
-    { "id": "1", "text": "a comment about post 1", "postId": "1" },
-    { "id": "2", "text": "another comment about post 1", "postId": "1" }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  "users": [
+    {
+      "id": "c651",
+      "name": "1",
+      "email": "1@gmail.com",
+      "password": "1"
+    },
+    {
+      "id": "6fe5",
+      "name": "ngf",
+      "email": "1@gmail.com",
+      "password": "11"
+    },
+    {
+      "id": "65e0",
+      "name": "11",
+      "email": "11@gmail.com",
+      "password": "e"
+    }
+  ]
 }
