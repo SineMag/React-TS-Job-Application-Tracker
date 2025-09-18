@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { FiArrowLeftCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from "sonner";
+// import Snackbar from "../components/Snackbar";
+import { Link } from "react-router-dom";
+
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -10,7 +14,8 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const API_URL = "http://localhost:3000/users"; 
+  const API_URL = "http://localhost:3000/users";
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,7 +23,9 @@ export default function SignUpPage() {
     if (isLogin) {
       // login
       try {
-        const res = await fetch(`${API_URL}?email=${email}&password=${password}`);
+        const res = await fetch(
+          `${API_URL}?email=${email}&password=${password}`
+        );
         const data = await res.json();
 
         if (data.length > 0) {
@@ -109,10 +116,11 @@ export default function SignUpPage() {
               required
             />
           </div>
-
-          <button type="submit" className="authButton">
-            {isLogin ? "Login" : "Sign Up"}
-          </button>
+          <Link to="/login">
+            <button type="submit" className="authButton">
+              {isLogin ? "Login" : "Sign Up"}
+            </button>
+          </Link>
         </form>
 
         <p className="toggleText">

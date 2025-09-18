@@ -40,7 +40,7 @@ export default function Welcome() {
         </div>
       </div>
 
-      {/* background circles */}
+      {/*yellow circles */}
       <div className="circles">
         <hr style={{ border: "none", width: "50px", height: "50px", borderRadius: "50%", backgroundColor: "#DBFA87" }} />
         <hr style={{ border: "none", width: "100px", height: "100px", borderRadius: "50%", backgroundColor: "#DBFA87" }} />
