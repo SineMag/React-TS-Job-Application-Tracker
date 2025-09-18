@@ -1,12 +1,12 @@
-// import React, { useState } from 'react';
-// import Snackbar from "@material-ui/";
+import React, { useState } from 'react';
+import Snackbar from '@mui/material/Snackbar';
 
-// export default function Snackbar() {
+export default function Snackbar() {
 
 
-//   return (
-//     <div>
+  return (
+    <div>
       
-//     </div>
-//   );
-// }
+    </div>
+  );
+}

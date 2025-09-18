@@ -176,7 +176,7 @@ export default function Dashboard() {
 
       <main style={{ display: "flex", gap: "2rem", marginTop: "1rem" }}>
         {/* left form */}
-        <div style={{ width: "30%" }}>
+        <div  className="main" style={{ width: "30%" }}>
           <form
             onSubmit={(e) => {
               e.preventDefault();

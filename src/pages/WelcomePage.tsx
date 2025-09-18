@@ -5,7 +5,7 @@ export default function Welcome() {
   return (
     <div className="welcomePage">
       {/* navigation */}
-      <nav>
+      <nav style={{backgroundColor:"black", color:"white"}}>
         <div className="logo">
           <h2>Job Application Tracker</h2>
         </div>

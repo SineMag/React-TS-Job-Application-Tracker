@@ -11,3 +11,7 @@ GET /users/:id - This retrieves a specific user by its id.
 POST /users - This creates a new user.
 PUT /users/:id - This updates a user based on a specified id.
 DELETE /users/:id - This deletes a user based on the specified id.
+
+installing the Snackbar compponent
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/icons-material

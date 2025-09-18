@@ -17,6 +17,12 @@
       "name": "11",
       "email": "11@gmail.com",
       "password": "e"
+    },
+    {
+      "id": "90a9",
+      "name": "User",
+      "email": "11@g.com",
+      "password": "1"
     }
   ],
   "jobs": [
@@ -30,7 +36,16 @@
       "requirements": "a"
     },
     {
-      "id": "7d73",
+      "id": "45e6",
+      "company": "1",
+      "role": "1",
+      "status": "1",
+      "dateApplied": "2025-09-19",
+      "duties": "1",
+      "requirements": "1"
+    },
+    {
+      "id": "e1db",
       "company": "1",
       "role": "1",
       "status": "1",
