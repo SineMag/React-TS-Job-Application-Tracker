@@ -434,4 +434,19 @@ main {
   transition: background 0.3s;
 }
 
+.cardSection {
+  display: flex;
+  gap: 2rem;
 
+}
+
+.cardItem {
+width: 30%;
+height: 20vh;
+border-radius: 15px;
+box-shadow: 1px 2px 3px 4px rgba(20,20,20,0.4);
+
+}
+.cardJob {
+  width: 45%;
+}

@@ -19,5 +19,24 @@
       "password": "e"
     }
   ],
-  "jobs": []
+  "jobs": [
+    {
+      "id": "88f9",
+      "company": "a",
+      "role": "a",
+      "status": "a",
+      "dateApplied": "2025-09-04",
+      "duties": "a",
+      "requirements": "a"
+    },
+    {
+      "id": "7d73",
+      "company": "1",
+      "role": "1",
+      "status": "1",
+      "dateApplied": "2025-08-31",
+      "duties": "1",
+      "requirements": "1"
+    }
+  ]
 }
