@@ -1,8 +1,10 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import WelcomePage from "./components/WelcomePage";
+import WelcomePage from "./pages/WelcomePage";
 import Footer from "./components/Footer";
-import SignUpPage from "./components/SignUpPage";
+import SignUpPage from "./pages/SignUpPage";
+import LogInPage from "./pages/LogInPage";
+import Error404 from "./pages/Error404";
 
 function App() {
   return (
@@ -11,18 +13,12 @@ function App() {
         {/* landing page */}
         <Routes>
           <Route path="/" element={<WelcomePage />} />
-          <Route path="/about" element={<h2>About Page</h2>} />
-          <Route path="/contact" element={<h2>Contact Page</h2>} />
-          
-          <Route path="/signup" element={<SignUpPage/>} />
-          <Route >
-            {/* sign-up or sign-in page  */}
-
-          </Route>
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LogInPage />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
         <Footer />
       </div>
-
     </Router>
   );
 }

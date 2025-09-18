@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import { FiArrowLeftCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
-export default function SignUpPage() {
+export default function LogInPage() {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (isLogin) {
-      console.log("Logging in:", {name, email, password });
-      //  Hook up login API
+      console.log("Logging in:", { email, password });
+      // TODO: Hook up login API
     } else {
-      console.log("Signing up:", {name, email, password });
-      //  Hook up signup API
+      console.log("Signing up:", { email, password });
+      // TODO: Hook up signup API
     }
 
     setEmail("");
@@ -25,33 +24,28 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="signUpPage">
+    <div className="authPage">
       {/* Top Nav with back arrow */}
-      <div className="signUpNav">
-        <button className="leftArrow" onClick={() => navigate("/")}>
+      <div className="authNav">
+        <button
+          type="button"
+          className="leftArrow"
+          onClick={() => navigate("../pages/SignUpPage.tsx")}
+          aria-label="Go to signup-page"
+        >
           <FiArrowLeftCircle size={28} />
         </button>
       </div>
 
-      {/* Form */}
-      <div className="signUpForm">
+      {/* Auth Form */}
+      <div className="authForm">
         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
 
         <form onSubmit={handleSubmit}>
           <div className="formGroup">
-            <label>Full Name</label>
+            <label htmlFor="email">Email</label>
             <input
-              type="name"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="formGroup">
-            <label>Email</label>
-            <input
+              id="email"
               type="email"
               placeholder="Enter your email"
               value={email}
@@ -61,8 +55,9 @@ export default function SignUpPage() {
           </div>
 
           <div className="formGroup">
-            <label>Password</label>
+            <label htmlFor="password">Password</label>
             <input
+              id="password"
               type="password"
               placeholder="Enter your password"
               value={password}
@@ -78,9 +73,13 @@ export default function SignUpPage() {
 
         <p className="toggleText">
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-          <span onClick={() => setIsLogin(!isLogin)}>
+          <button
+            type="button"
+            className="toggleLink"
+            onClick={() => setIsLogin(!isLogin)}
+          >
             {isLogin ? "Sign Up" : "Login"}
-          </span>
+          </button>
         </p>
       </div>
     </div>

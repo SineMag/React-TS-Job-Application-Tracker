@@ -243,3 +243,53 @@ nav {
   cursor: pointer;
 }
 
+.errorPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  color: black; 
+  text-align: center;
+ 
+}
+
+
+.errorContent h1 {
+  font-size: 6rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-top: -20%;
+  color: #82204a; /* redish color from the color pallete..  */
+}
+
+.errorMessage {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  color: #cbd5e1;
+}
+
+.errorVideo {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.backHome {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #7dbb42;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.backHome:hover {
+  background: #2563eb;
+}
+
+

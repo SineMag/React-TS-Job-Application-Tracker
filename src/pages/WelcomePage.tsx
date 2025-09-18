@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import WelcomeImage from "../assets/landing.png";
 
@@ -10,13 +9,7 @@ export default function Welcome() {
         <div className="logo">
           <h2>Job Application Tracker</h2>
         </div>
-        <div className="rightNav">
-          <ul style={{ listStyleType: "none" }}>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contact">Contact Us</Link></li>
-          </ul>
-        </div>
+     
       </nav>
 
       {/* hero */}
