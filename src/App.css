@@ -14,10 +14,24 @@ body,
   background-color: #fff;
   color: #111;
 }
+
 #root {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Colors */
+:root {
+  --primary: #7dbb42; /* greenish lime */
+  --primary-dark: #5a9b2f;
+  --secondary: #000; /* black */
+  --light: #fff; /* white */
+  --muted: #f9f9f9;
+  --border: #ddd;
+}
+
+/* Navigation */
 nav {
   width: 100%;
   display: flex;
@@ -25,12 +39,14 @@ nav {
   align-items: center;
   padding: 1.5rem 2rem;
   font-size: 1.3rem;
-  background-color: #fff;
+  background-color: var(--light);
+  border-bottom: 2px solid var(--primary);
 }
 
 .logo h2 {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: bold;
+  color: var(--secondary);
 }
 
 .rightNav ul {
@@ -45,9 +61,10 @@ nav {
 }
 
 .rightNav ul li:hover {
-  color: #7dbb42; /* hover color */
+  color: var(--primary);
 }
 
+/* Hero Section */
 .hero {
   width: 100%;
   min-height: 75vh;
@@ -68,26 +85,29 @@ nav {
 .heroText h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
+  color: var(--secondary);
 }
 
 .heroText p {
   font-size: 1.1rem;
   line-height: 1.6;
+  color: #333;
 }
 
 .getStartedButton {
   padding: 0.8rem 2rem;
   border: none;
-  background-color: #7dbb42;
-  color: white;
+  background-color: var(--primary);
+  color: var(--light);
   font-size: 1.2rem;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: fit-content;
 }
 
 .getStartedButton:hover {
-  background-color: #5a9b2f;
+  background-color: var(--primary-dark);
   transform: scale(1.05);
 }
 
@@ -112,7 +132,7 @@ nav {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background-color: #dbfa87;
+  background-color: #dbfa87; /* light lime accent */
   z-index: 0;
 }
 
@@ -128,49 +148,30 @@ nav {
   background-color: #dbfa87;
 }
 
+/* Footer */
 .footerLandingPage {
   width: 100%;
   padding: 1rem;
   text-align: center;
-  border-top: 1px solid #ddd;
-  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
   font-size: 0.9rem;
-  color: white;
-  background-color: black;
+  color: var(--light);
+  background-color: var(--secondary);
 }
 
-/* .signUpForm {
-  border: 1px solid red;
-  height: 70vh;
-}
-
-.SignUpNav {
-    height: 5vh;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-
-}
-.leftArrow {
-  border: none;
-  background-color: white;
-  font-size: 2rem;
-  cursor: pointer;
-} */
-
-.signUpPage {
+/* Auth Pages */
+.authPage {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  min-height: 80vh;
 }
 
-.signUpNav {
+.authNav {
   width: 100%;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 1rem;
 }
 
 .leftArrow {
@@ -178,21 +179,32 @@ nav {
   border: none;
   cursor: pointer;
   font-size: 2rem;
+  color: var(--secondary);
 }
 
-.signUpForm {
+.authForm {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.authForm > div {
   width: 100%;
   max-width: 400px;
-  background: #f9f9f9;
+  background: var(--muted);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
 }
 
-.signUpForm h2 {
+.authForm h2 {
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
+  text-align: center;
+  color: var(--secondary);
 }
 
 .formGroup {
@@ -204,19 +216,21 @@ nav {
   display: block;
   font-weight: bold;
   margin-bottom: 0.3rem;
+  color: var(--secondary);
 }
 
 .formGroup input {
   width: 100%;
   padding: 0.8rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 1rem;
 }
 
+.logButton,
 .authButton {
-  background-color: #7dbb42;
-  color: white;
+  background-color: var(--primary);
+  color: var(--light);
   border: none;
   padding: 0.9rem;
   font-size: 1.1rem;
@@ -225,31 +239,79 @@ nav {
   transition: all 0.3s;
   width: 100%;
   margin-top: 1rem;
-  border: 1px solid blue;
 }
 
+.logButton:hover,
 .authButton:hover {
-  background-color: #5a9b2f;
+  background-color: var(--primary-dark);
 }
 
 .toggleText {
   margin-top: 1rem;
   font-size: 0.9rem;
+  text-align: center;
 }
 
-.toggleText span {
-  color: #7dbb42;
+.toggleLink {
+  background: none;
+  border: none;
+  color: var(--primary);
   font-weight: bold;
   cursor: pointer;
+  text-decoration: underline;
 }
 
+.statusMessage {
+  padding: 0.5rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.statusMessage:empty {
+  display: none;
+}
+
+/* Sign Up Page */
+.signUpPage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.signUpNav {
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.signUpForm {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.signUpForm > div {
+  width: 100%;
+  max-width: 400px;
+  background: var(--muted);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Error Page */
 .errorPage {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: 100vh;
-  color: black;
+  color: var(--secondary);
   text-align: center;
 }
 
@@ -257,14 +319,13 @@ nav {
   font-size: 6rem;
   font-weight: bold;
   margin-bottom: 10px;
-  margin-top: -20%;
-  color: #82204a; /* redish color from the color pallete..  */
+  color: var(--primary-dark);
 }
 
 .errorMessage {
   font-size: 1.25rem;
   margin-bottom: 20px;
-  color: #cbd5e1;
+  color: #4a5568;
 }
 
 .errorVideo {
@@ -273,35 +334,36 @@ nav {
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
-.logButton {
-  border: 1px solid blue;
-}
 
 .backHome {
-  display: flex;
-  justify-content: center;
+  display: inline-block;
   margin-top: 20px;
   padding: 10px 20px;
-  background: #7dbb42;
-  color: white;
+  background: var(--primary);
+  color: var(--light);
   border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
 }
 
 .backHome:hover {
-  background: #2563eb;
+  background: var(--primary-dark);
 }
 
+/* Dashboard */
 .dashboard {
   width: 100%;
-  height: 85vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-main {
-  width: 100%;
+.dashboard nav {
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 0.5rem;
+}
+
+.dashboard main {
   flex: 1;
   display: flex;
   gap: 2rem;
@@ -309,162 +371,190 @@ main {
 }
 
 /* Left column */
-.leftMain {
-  flex: 0.35; /* ~35% width */
+.dashboard .main {
+  width: 30%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.dashboard form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dashboard input {
+  padding: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.dashboard button[type="submit"] {
+  padding: 0.75rem;
+  background: var(--primary);
+  color: var(--light);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dashboard button[type="button"] {
+  padding: 0.75rem;
+  background: #ccc;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 /* Right column */
-.rightMain {
-  flex: 0.65; /* ~65% width */
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* Buttons */
-.mainButtonLeft {
-  border: none;
-  background-color: #7dbb42;
-  padding: 0.8rem;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s;
-}
-
-.mainButtonLeft:hover {
-  background-color: #82204a;
-}
-
-/* Form */
-.dashboardForm {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-
-.dashboardForm label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #555;
-}
-
-.dashboardForm input {
-  width: 100%;
-  height: 40px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(20, 20, 20, 0.2);
-  border: none;
-  padding-left: 0.8rem;
-  font-size: 0.95rem;
-}
-
-/* Search bar */
-.rightMain input[type="text"] {
+.dashboard > main > div:last-child {
   flex: 1;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
 }
 
-.searchButton {
-  margin-left: 0.5rem;
+/* Search/filter/sort */
+.dashboard > main > div:last-child > div:first-child {
+  display: flex;
+  gap: 1rem;
+}
+
+.dashboard > main > div:last-child > div:first-child input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.dashboard > main > div:last-child > div:first-child button {
+  padding: 0.75rem 1rem;
+  background: var(--primary);
+  border: none;
+  color: var(--light);
+  border-radius: 6px;
   cursor: pointer;
-  color: #333;
-  font-size: 1.2rem;
 }
 
-/* No job found */
-.noJobFound {
-  margin-top: 1rem;
-  color: #82204a;
-  font-weight: bold;
+.dashboard > main > div:last-child > div:nth-child(2) {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* Job cards */
-.cardJob {
-  width: 100%;
-  min-height: 120px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(20, 20, 20, 0.15);
-  padding: 1rem;
-  margin-top: 1rem;
-}
-
-/* Correct state-based card styling */
-.cardJob.interviewed {
-  background-color: #d2fbe3;
-}
-.cardJob.applied {
-  background-color: #f3f3f3;
-}
-.cardJob.rejected {
-  background-color: #fbe9cf;
-}
-
-.filterSort {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   gap: 1rem;
   margin-top: 1rem;
 }
 
-.filter,
-.sort {
-  flex: 1; /* each takes half */
+.dashboard > main > div:last-child > div:nth-child(2) > div {
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  color: white;
-  border-radius: 10px;
-  padding: 0.8rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s;
 }
 
-.cardSection {
-  display: flex;
-  gap: 2rem;
-}
-
-.cardItem {
-  width: 30%;
-  height: 20vh;
-  border-radius: 15px;
-  box-shadow: 1px 2px 3px 4px rgba(20, 20, 20, 0.4);
-}
-.cardJob {
-  width: 45%;
-}
-.authPage{
-  height: 100vh;
-
-}
-
-footer {
+.dashboard select {
   width: 100%;
-  height: 10vh;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+/* Job list */
+.dashboard > main > div:last-child > div:last-child {
+  margin-top: 1rem;
+}
+
+.job-card {
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  background: var(--light);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.job-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--secondary);
+}
+
+.job-card p {
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.job-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.job-actions button {
+  padding: 0.5rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: bold;
 }
 
-input {
-  height: 6vh;
-  gap:1rem;
-  margin-bottom: 5%;
-  border-radius: 15px;
-  box-shadow: 1px 2px 3px 4px rgba(20,20,20,0.4); 
-  border: none;
+.job-actions button:first-child {
+  background: #ffc107;
+  color: #111;
+}
+
+.job-actions button:last-child {
+  background: #dc3545;
+  color: var(--light);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .heroText {
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .dashboard main {
+    flex-direction: column;
+  }
+  
+  .dashboard .main {
+    width: 100%;
+  }
+  
+  .dashboard > main > div:last-child > div:first-child,
+  .dashboard > main > div:last-child > div:nth-child(2) {
+    flex-direction: column;
+  }
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+
+.hidden {
+  display: none;
 }

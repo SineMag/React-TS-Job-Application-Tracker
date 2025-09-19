@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { FiArrowLeftCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
 
 export default function LogInPage() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,10 +23,9 @@ export default function LogInPage() {
         const data = await res.json();
 
         if (data.length > 0) {
-          localStorage.setItem("currentUser", JSON.stringify(data[0]));
-          console.log("Logged-in user:", data[0]); // ✅ log the user
+          login(data[0]);
           setMessage(`✅ Welcome back, ${data[0].name}!`);
-          navigate("/dashboard"); // redirect to dashboard
+          navigate("/dashboard");
         } else {
           setMessage("❌ Invalid email or password");
         }
@@ -41,7 +42,7 @@ export default function LogInPage() {
         if (existingUsers.length > 0) {
           setMessage("❌ Email already registered. Please login.");
         } else {
-          const newUser = { name: "User", email, password };
+          const newUser = { name: email.split('@')[0], email, password };
           const res = await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -49,12 +50,10 @@ export default function LogInPage() {
           });
 
           if (res.ok) {
-            localStorage.setItem("currentUser", JSON.stringify(newUser));
-            console.log("user:", newUser);
+            const createdUser = await res.json();
+            login(createdUser);
             setMessage("✅ Account created! Logging in...");
             setIsLogin(true);
-            // auto login and redirect
-            navigate("/dashboard"); 
           } else {
             setMessage("⚠️ Failed to sign up. Try again.");
           }

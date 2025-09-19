@@ -1,57 +1,60 @@
 {
   "users": [
     {
-      "id": "c651",
+      "id": "cae4",
       "name": "1",
-      "email": "1@gmail.com",
+      "email": "1@g.com",
       "password": "1"
     },
     {
-      "id": "6fe5",
-      "name": "ngf",
+      "id": "1dfb",
+      "name": "1",
       "email": "1@gmail.com",
       "password": "11"
     },
     {
-      "id": "65e0",
-      "name": "11",
-      "email": "11@gmail.com",
-      "password": "e"
+      "id": "9565",
+      "name": "Sinenhlanhla Magubane",
+      "email": "sm@mial.com",
+      "password": "11"
     },
     {
-      "id": "90a9",
-      "name": "User",
-      "email": "11@g.com",
-      "password": "1"
+      "id": "07df",
+      "name": "Sinenhlanhla Magubane",
+      "email": "sm@mail.com",
+      "password": "11"
     }
   ],
   "jobs": [
     {
-      "id": "88f9",
-      "company": "a",
-      "role": "a",
-      "status": "a",
-      "dateApplied": "2025-09-04",
-      "duties": "a",
-      "requirements": "a"
+      "id": "a490",
+      "company": "11",
+      "role": "11",
+      "status": "11",
+      "dateApplied": "2025-09-03",
+      "duties": "11",
+      "requirements": "11",
+      "userId": "1dfb"
     },
     {
-      "id": "45e6",
-      "company": "1",
-      "role": "1",
-      "status": "1",
-      "dateApplied": "2025-09-19",
-      "duties": "1",
-      "requirements": "1"
+      "id": "9290",
+      "company": "Job",
+      "role": "Job",
+      "status": "Job",
+      "dateApplied": "2025-09-10",
+      "duties": "Job",
+      "requirements": "Job",
+      "userId": "1dfb"
     },
     {
-      "id": "e1db",
-      "company": "1",
-      "role": "1",
-      "status": "1",
-      "dateApplied": "2025-08-31",
-      "duties": "1",
-      "requirements": "1"
+      "id": "1b52",
+      "company": "Company",
+      "role": "Role",
+      "status": "Status",
+      "dateApplied": "2025-09-11",
+      "duties": "Duties",
+      "requirements": "Requirements",
+      "userId": "07df"
     }
   ]
 }

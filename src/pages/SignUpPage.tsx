@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { FiArrowLeftCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { Toaster, toast } from "sonner";
-// import Snackbar from "../components/Snackbar";
-import { Link } from "react-router-dom";
-
+import { useAuth } from "../components/AuthContext";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [isLogin, setIsLogin] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -15,7 +13,6 @@ export default function SignUpPage() {
   const [message, setMessage] = useState("");
 
   const API_URL = "http://localhost:3000/users";
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,8 +26,9 @@ export default function SignUpPage() {
         const data = await res.json();
 
         if (data.length > 0) {
+          login(data[0]);
           setMessage(`✅ Welcome back, ${data[0].name}!`);
-          console.log("Login success:", data[0]);
+          navigate("/dashboard");
         } else {
           setMessage("❌ Invalid email or password");
         }
@@ -40,19 +38,28 @@ export default function SignUpPage() {
       }
     } else {
       try {
-        const newUser = { name, email, password };
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newUser),
-        });
+        const checkRes = await fetch(`${API_URL}?email=${email}`);
+        const existingUsers = await checkRes.json();
 
-        if (res.ok) {
-          setMessage("✅ Account created successfully! Please login.");
-          console.log("User signed up:", newUser);
-          setIsLogin(true); // switch to login after signup
+        if (existingUsers.length > 0) {
+          setMessage("❌ Email already registered. Please login.");
+          setIsLogin(true);
         } else {
-          setMessage("⚠️ Failed to sign up. Try again.");
+          const newUser = { name, email, password };
+          const res = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newUser),
+          });
+
+          if (res.ok) {
+            const createdUser = await res.json();
+            login(createdUser);
+            setMessage("✅ Account created successfully!");
+            navigate("/dashboard");
+          } else {
+            setMessage("⚠️ Failed to sign up. Try again.");
+          }
         }
       } catch (err) {
         console.error("Signup error:", err);
@@ -116,11 +123,10 @@ export default function SignUpPage() {
               required
             />
           </div>
-          <Link to="/login">
-            <button type="submit" className="authButton">
-              {isLogin ? "Login" : "Sign Up"}
-            </button>
-          </Link>
+
+          <button type="submit" className="authButton">
+            {isLogin ? "Login" : "Sign Up"}
+          </button>
         </form>
 
         <p className="toggleText">

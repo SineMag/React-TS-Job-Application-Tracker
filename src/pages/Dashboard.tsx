@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaSearch, FaHeartBroken, FaSortDown, FaTrash, FaEdit } from "react-icons/fa";
 import { CiFilter } from "react-icons/ci";
+import { useAuth } from "../components/AuthContext";
 
 interface Job {
   id: number;
@@ -11,9 +12,12 @@ interface Job {
   dateApplied: string;
   duties?: string;
   requirements?: string;
+  userId: number;
 }
 
 export default function Dashboard() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
@@ -34,11 +38,20 @@ export default function Dashboard() {
 
   const API_URL = "http://localhost:3000/jobs";
 
-  // fetch jobs
+  // Check if user is authenticated
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
+  // fetch jobs for current user only
   const fetchJobs = async () => {
+    if (!user) return;
+    
     try {
       setLoading(true);
-      const res = await fetch(API_URL);
+      const res = await fetch(`${API_URL}?userId=${user.id}`);
       if (!res.ok) throw new Error("Failed to fetch jobs");
       const data = await res.json();
       setJobs(data);
@@ -51,11 +64,19 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    fetchJobs();
-  }, []);
+    if (user) {
+      fetchJobs();
+    }
+  }, [user]);
 
-  // create or update job
+  // create or update job with user ID
   const handleSaveJob = async () => {
+    if (!user) {
+      alert("Please log in to save jobs");
+      navigate("/login");
+      return;
+    }
+
     if (!company || !role || !status || !dateApplied) {
       alert("Please fill in all required fields.");
       return;
@@ -68,6 +89,7 @@ export default function Dashboard() {
       dateApplied,
       duties,
       requirements,
+      userId: user.id,
     };
 
     try {
@@ -133,6 +155,12 @@ export default function Dashboard() {
     setEditJobId(null);
   };
 
+  // handle logout
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   // search + filter + sort
   const filteredJobs = jobs
     .filter(
@@ -147,6 +175,10 @@ export default function Dashboard() {
       return sortOrder === "Newest" ? dateB - dateA : dateA - dateB;
     });
 
+  if (!user) {
+    return <div>Redirecting to login...</div>;
+  }
+
   return (
     <div className="dashboard" style={{ padding: "1rem" }}>
       {/* nav */}
@@ -160,23 +192,35 @@ export default function Dashboard() {
         }}
       >
         <h2>Job Application Tracker</h2>
-        <ul style={{ display: "flex", gap: "1rem", listStyle: "none" }}>
-          <li>
-            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-              Logout
-            </Link>
-          </li>
-        </ul>
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <span>Welcome, {user.name}</span>
+          <ul style={{ display: "flex", gap: "1rem", listStyle: "none" }}>
+            <li>
+              <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <button 
+                onClick={handleLogout} 
+                style={{ 
+                  background: "none", 
+                  border: "none", 
+                  cursor: "pointer", 
+                  textDecoration: "none", 
+                  color: "black" 
+                }}
+              >
+                Logout
+              </button>
+            </li>
+          </ul>
+        </div>
       </nav>
 
       <main style={{ display: "flex", gap: "2rem", marginTop: "1rem" }}>
         {/* left form */}
-        <div  className="main" style={{ width: "30%" }}>
+        <div className="main" style={{ width: "30%" }}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
