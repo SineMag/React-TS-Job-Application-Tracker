@@ -29,6 +29,12 @@
       "name": "User",
       "email": "mail@mail.com",
       "password": "1"
+    },
+    {
+      "id": "11e1",
+      "name": "User Name",
+      "email": "em@il.com",
+      "password": "1"
     }
   ],
   "jobs": [
