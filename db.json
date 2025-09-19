@@ -23,6 +23,12 @@
       "name": "Sinenhlanhla Magubane",
       "email": "sm@mail.com",
       "password": "11"
+    },
+    {
+      "id": "b62f",
+      "name": "User",
+      "email": "mail@mail.com",
+      "password": "1"
     }
   ],
   "jobs": [
@@ -55,6 +61,16 @@
       "duties": "Duties",
       "requirements": "Requirements",
       "userId": "07df"
+    },
+    {
+      "company": "mLab",
+      "role": "Role",
+      "status": "Applied",
+      "dateApplied": "2025-09-12",
+      "duties": "Full-Stack Trainee",
+      "requirements": "Yourself",
+      "userId": "9565",
+      "id": "7aeb"
     }
   ]
 }
