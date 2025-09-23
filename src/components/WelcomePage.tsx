@@ -1,23 +1,12 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import WelcomeImage from "../assets/landing.png";
+import Header from "./Header";
 
 export default function Welcome() {
   return (
     <div className="welcomePage">
       {/* navigation */}
-      <nav>
-        <div className="logo">
-          <h2>Job Application Tracker</h2>
-        </div>
-        <div className="rightNav">
-          <ul style={{ listStyleType: "none" }}>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contact">Contact Us</Link></li>
-          </ul>
-        </div>
-      </nav>
+      <Header showLogout={false} />
 
       {/* hero */}
       <div className="hero">

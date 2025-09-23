@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiArrowLeftCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { signUp, signIn } from "../firebase/auth";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -8,20 +9,27 @@ export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    if (isLogin) {
-      console.log("Logging in:", {name, email, password });
-      //  Hook up login API
-    } else {
-      console.log("Signing up:", {name, email, password });
-      //  Hook up signup API
+    try {
+      if (isLogin) {
+        await signIn(email, password);
+        navigate('/dashboard');
+      } else {
+        await signUp(email, password);
+        navigate('/dashboard');
+      }
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
-
-    setEmail("");
-    setPassword("");
   };
 
   return (
@@ -38,16 +46,20 @@ export default function SignUpPage() {
         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
 
         <form onSubmit={handleSubmit}>
-          <div className="formGroup">
-            <label>Full Name</label>
-            <input
-              type="name"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
+          {error && <div className="errorMessage">{error}</div>}
+          
+          {!isLogin && (
+            <div className="formGroup">
+              <label>Full Name</label>
+              <input
+                type="text"
+                placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+          )}
 
           <div className="formGroup">
             <label>Email</label>
@@ -71,8 +83,8 @@ export default function SignUpPage() {
             />
           </div>
 
-          <button type="submit" className="authButton">
-            {isLogin ? "Login" : "Sign Up"}
+          <button type="submit" className="authButton" disabled={loading}>
+            {loading ? "Loading..." : (isLogin ? "Login" : "Sign Up")}
           </button>
         </form>
 
