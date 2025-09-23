@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import type { JobApplication } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import { getUserJobApplications, addJobApplication, updateJobApplication, deleteJobApplication } from '../firebase/firestore';
@@ -7,10 +8,16 @@ import JobApplicationList from './JobApplicationList';
 
 export default function Dashboard() {
   const { currentUser } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [editingApplication, setEditingApplication] = useState<JobApplication | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Get URL parameters
+  const searchQuery = searchParams.get('search') || '';
+  const filterStatus = searchParams.get('filter') || '';
+  const sortOrder = searchParams.get('sort') || '';
 
   // Load applications from Firestore on component mount
   useEffect(() => {
@@ -78,6 +85,39 @@ export default function Dashboard() {
     setEditingApplication(null);
   };
 
+  // Filter, search, and sort applications
+  const filteredAndSortedApplications = applications
+    .filter(app => {
+      // Search filter
+      const matchesSearch = searchQuery === '' || 
+        app.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        app.position.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      // Status filter
+      const matchesStatus = filterStatus === '' || app.status === filterStatus;
+      
+      return matchesSearch && matchesStatus;
+    })
+    .sort((a, b) => {
+      if (sortOrder === 'date-asc') {
+        return new Date(a.dateApplied).getTime() - new Date(b.dateApplied).getTime();
+      } else if (sortOrder === 'date-desc') {
+        return new Date(b.dateApplied).getTime() - new Date(a.dateApplied).getTime();
+      }
+      return 0; // No sorting
+    });
+
+  // Update URL parameters
+  const updateSearchParams = (key: string, value: string) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (value) {
+      newParams.set(key, value);
+    } else {
+      newParams.delete(key);
+    }
+    setSearchParams(newParams);
+  };
+
   if (loading) {
     return (
       <div className="dashboard">
@@ -98,6 +138,50 @@ export default function Dashboard() {
         </button>
       </div>
 
+      {/* Search, Filter, and Sort Controls */}
+      <div className="controlsSection">
+        <div className="searchBar">
+          <input
+            type="text"
+            placeholder="Search by company or position..."
+            value={searchQuery}
+            onChange={(e) => updateSearchParams('search', e.target.value)}
+            className="searchInput"
+          />
+        </div>
+        
+        <div className="filtersRow">
+          <div className="filterGroup">
+            <label htmlFor="statusFilter">Filter by Status:</label>
+            <select
+              id="statusFilter"
+              value={filterStatus}
+              onChange={(e) => updateSearchParams('filter', e.target.value)}
+              className="filterSelect"
+            >
+              <option value="">All Statuses</option>
+              <option value="Applied">Applied</option>
+              <option value="Interview">Interview</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+          
+          <div className="filterGroup">
+            <label htmlFor="sortOrder">Sort by Date:</label>
+            <select
+              id="sortOrder"
+              value={sortOrder}
+              onChange={(e) => updateSearchParams('sort', e.target.value)}
+              className="filterSelect"
+            >
+              <option value="">No Sorting</option>
+              <option value="date-desc">Newest First</option>
+              <option value="date-asc">Oldest First</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       {showForm && (
         <JobApplicationForm
           onSubmit={editingApplication ? 
@@ -110,7 +194,7 @@ export default function Dashboard() {
       )}
 
       <JobApplicationList
-        applications={applications}
+        applications={filteredAndSortedApplications}
         onEdit={startEditing}
         onDelete={handleDeleteApplication}
       />
