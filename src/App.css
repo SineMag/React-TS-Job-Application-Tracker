@@ -296,6 +296,80 @@ nav {
   color: #666;
 }
 
+/* Error Page Styles */
+.errorPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.errorContent {
+  max-width: 600px;
+  width: 100%;
+}
+
+.errorContent h1 {
+  font-size: 3rem;
+  color: #dc3545;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.errorContent p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.errorVideo {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.errorActions {
+  margin-top: 2rem;
+}
+
+.homeButton {
+  background-color: #7dbb42;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.homeButton:hover {
+  background-color: #5a9b2f;
+  transform: scale(1.05);
+}
+
+/* Responsive Error Page */
+@media (max-width: 768px) {
+  .errorContent h1 {
+    font-size: 2rem;
+  }
+  
+  .errorContent p {
+    font-size: 1rem;
+  }
+  
+  .errorVideo {
+    max-width: 300px;
+  }
+}
+
 /* Dashboard Styles */
 .dashboard {
   padding: 2rem;

@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import SignUpPage from "./components/SignUpPage";
 import LogInPage from "./components/LogInPage";
 import Dashboard from "./components/Dashboard";
+import ErrorPage from "./components/ErrorPage";
 
 function AppContent() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function AppContent() {
           <Route path="/signup" element={<SignUpPage/>} />
           <Route path="/login" element={<LogInPage/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="*" element={<ErrorPage/>} />
         </Routes>
       </main>
       <Footer />
