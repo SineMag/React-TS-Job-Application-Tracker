@@ -88,9 +88,7 @@ export default function JobApplicationForm({ onSubmit, onCancel, initialData }: 
               required
             >
               <option value="Applied">Applied</option>
-              <option value="Pending">Pending</option>
               <option value="Interview">Interview</option>
-              <option value="Offer">Offer</option>
               <option value="Rejected">Rejected</option>
             </select>
           </div>
@@ -108,7 +106,7 @@ export default function JobApplicationForm({ onSubmit, onCancel, initialData }: 
           </div>
 
           <div className="formGroup">
-            <label htmlFor="notes">Notes (Optional)</label>
+            <label htmlFor="notes">Description (Optional)</label>
             <textarea
               id="notes"
               name="notes"
