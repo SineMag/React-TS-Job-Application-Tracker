@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { NotificationProvider } from "./contexts/NotificationContext";
 import WelcomePage from "./components/WelcomePage";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -8,6 +9,7 @@ import SignUpPage from "./components/SignUpPage";
 import LogInPage from "./components/LogInPage";
 import Dashboard from "./components/Dashboard";
 import ErrorPage from "./components/ErrorPage";
+import Snackbar from "./components/Snackbar";
 
 function AppContent() {
   const location = useLocation();
@@ -29,6 +31,7 @@ function AppContent() {
         </Routes>
       </main>
       <Footer />
+      <Snackbar />
     </div>
   );
 }
@@ -36,9 +39,11 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <NotificationProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </NotificationProvider>
     </AuthProvider>
   );
 }

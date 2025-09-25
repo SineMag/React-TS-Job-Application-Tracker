@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { JobApplication } from '../types';
 import { useAuth } from '../contexts/AuthContext';
-import { getUserJobApplications, addJobApplication, updateJobApplication, deleteJobApplication } from '../firebase/firestore';
+import { useNotification } from '../contexts/NotificationContext';
+import { getUserJobApplications, addJobApplication, updateJobApplication, deleteJobApplication } from '../services/api';
 import JobApplicationForm from './JobApplicationForm';
 import JobApplicationList from './JobApplicationList';
 
 export default function Dashboard() {
   const { currentUser } = useAuth();
+  const { showNotification } = useNotification();
   const [searchParams, setSearchParams] = useSearchParams();
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [showForm, setShowForm] = useState(false);
@@ -24,7 +26,7 @@ export default function Dashboard() {
     const loadApplications = async () => {
       if (currentUser) {
         try {
-          const userApplications = await getUserJobApplications(currentUser.uid);
+          const userApplications = await getUserJobApplications(currentUser.id);
           setApplications(userApplications);
         } catch (error) {
           console.error('Error loading applications:', error);
@@ -41,15 +43,17 @@ export default function Dashboard() {
     if (!currentUser) return;
     
     try {
-      const docId = await addJobApplication(currentUser.uid, newApplication);
+      const docId = await addJobApplication(currentUser.id, newApplication);
       const application: JobApplication = {
         ...newApplication,
         id: docId,
       };
       setApplications(prev => [...prev, application]);
       setShowForm(false);
+      showNotification(`Successfully added application for ${newApplication.position} at ${newApplication.company}!`, 'success');
     } catch (error) {
       console.error('Error adding application:', error);
+      showNotification('Failed to add job application. Please try again.', 'error');
     }
   };
 

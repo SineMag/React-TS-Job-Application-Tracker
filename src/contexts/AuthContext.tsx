@@ -1,6 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { type User, onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase/config';
+import { getCurrentUser } from '../services/api';
+
+interface User {
+  id: string;
+  email: string;
+}
 
 interface AuthContextType {
   currentUser: User | null;
@@ -25,12 +29,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      setLoading(false);
-    });
+    // Check for existing user in localStorage
+    const user = getCurrentUser();
+    setCurrentUser(user);
+    setLoading(false);
 
-    return unsubscribe;
+    // Listen for storage changes (for logout from other tabs)
+    const handleStorageChange = () => {
+      const updatedUser = getCurrentUser();
+      setCurrentUser(updatedUser);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   const value = {

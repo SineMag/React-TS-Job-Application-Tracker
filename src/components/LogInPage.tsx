@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FiArrowLeftCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { signIn } from "../firebase/auth";
+import { signIn } from "../services/api";
 
 export default function LogInPage() {
   const navigate = useNavigate();

@@ -1,17 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
-import { logOut } from "../firebase/auth";
+import { Link } from "react-router-dom";
+import { logOut } from "../services/api";
 
 interface HeaderProps {
   showLogout?: boolean;
 }
 
 export default function Header({ showLogout = false }: HeaderProps) {
-  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await logOut();
-      navigate('/');
+      // Force a page reload to update the auth context
+      window.location.href = '/';
     } catch (error) {
       console.error('Error logging out:', error);
     }
