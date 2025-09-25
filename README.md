@@ -1,3 +1,5 @@
+<img src="https://socialify.git.ci/SineMag/React-TS-Job-Application-Tracker/image?language=1&owner=1&name=1&stargazers=1&theme=Light" alt="React-TS-Job-Application-Tracker" width="640" height="320" />
+
 # 📋 Job Application Tracker
 
 A modern, full-stack React TypeScript application for tracking job applications with JSON Server backend. Built with Vite, React Router, and localStorage authentication for simplicity and ease of development.
@@ -246,7 +248,7 @@ This project is licensed under the ISC License.
 ## 👨‍💻 Author
 
 **Sinenhlanhla Magubane**
-- GitHub: [@SineMag](https://github.com/SineMag)
+- [@SineMag](https://github.com/SineMag)
 
 ## 🌟 Key Features Explained
 
