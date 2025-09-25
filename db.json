@@ -1,5 +1,50 @@
 {
-  "jobApplications": [],
+  "jobApplications": [
+    {
+      "id": "dd39",
+      "company": "mLab",
+      "position": "SD Trainee",
+      "status": "Interview",
+      "dateApplied": "2025-09-25T00:00:00.000Z",
+      "notes": "thgrfg",
+      "userId": "1",
+      "createdAt": "2025-09-25T07:44:25.862Z",
+      "updatedAt": "2025-09-25T07:44:25.862Z"
+    },
+    {
+      "id": "e542",
+      "company": "fghfdgf",
+      "position": "ghfgfdg",
+      "status": "Applied",
+      "dateApplied": "2025-09-25T00:00:00.000Z",
+      "notes": "gfgdfg",
+      "userId": "1",
+      "createdAt": "2025-09-25T07:44:33.910Z",
+      "updatedAt": "2025-09-25T07:44:33.910Z"
+    },
+    {
+      "id": "5a0d",
+      "company": "gsdfsa\\f",
+      "position": "gsdgsdez",
+      "status": "Applied",
+      "dateApplied": "2025-09-25T00:00:00.000Z",
+      "notes": "gdsfgz",
+      "userId": "1758786335965",
+      "createdAt": "2025-09-25T07:46:13.430Z",
+      "updatedAt": "2025-09-25T07:46:13.430Z"
+    },
+    {
+      "id": "4589",
+      "company": "fgsdzvdsfvsaw111",
+      "position": "11",
+      "status": "Applied",
+      "dateApplied": "2025-09-25T00:00:00.000Z",
+      "notes": "111",
+      "userId": "1758786335965",
+      "createdAt": "2025-09-25T07:46:20.317Z",
+      "updatedAt": "2025-09-25T07:46:20.317Z"
+    }
+  ],
   "users": [
     {
       "id": "1",

@@ -72,10 +72,23 @@ export default function Dashboard() {
 
   const handleDeleteApplication = async (id: string) => {
     try {
+      // Get the application details before deletion for the notification
+      const applicationToDelete = applications.find(app => app.id === id);
       await deleteJobApplication(id);
       setApplications(prev => prev.filter(app => app.id !== id));
+      
+      // Show success notification
+      if (applicationToDelete) {
+        showNotification(
+          `Successfully deleted application for ${applicationToDelete.position} at ${applicationToDelete.company}!`, 
+          'success'
+        );
+      } else {
+        showNotification('Job application deleted successfully!', 'success');
+      }
     } catch (error) {
       console.error('Error deleting application:', error);
+      showNotification('Failed to delete job application. Please try again.', 'error');
     }
   };
 

@@ -1,6 +1,6 @@
-# Job Application Tracker
+# 📋 Job Application Tracker
 
-A modern, full-stack React TypeScript application for tracking job applications with Firebase backend integration. Built with Vite, React Router, and Firebase Authentication & Firestore.
+A modern, full-stack React TypeScript application for tracking job applications with JSON Server backend. Built with Vite, React Router, and localStorage authentication for simplicity and ease of development.
 
 ## 🚀 Live Demo
 
@@ -8,12 +8,13 @@ A modern, full-stack React TypeScript application for tracking job applications 
 
 ## ✨ Features
 
-- **User Authentication** - Secure sign up/login with Firebase Auth
+- **Simple Authentication** - Easy sign up/login with localStorage
 - **Job Application Management** - Add, edit, delete, and track job applications
 - **Status Tracking** - Monitor application status (Applied, Pending, Interview, Offer, Rejected)
-- **Cloud Storage** - All data stored securely in Firebase Firestore
+- **Local Data Storage** - All data stored in JSON Server for development
 - **Responsive Design** - Works seamlessly on desktop and mobile devices
-- **Real-time Sync** - Data syncs across all devices
+- **Search & Filter** - Find applications by company, position, or status
+- **Sort Functionality** - Sort applications by date applied
 - **404 Error Page** - Custom error page with video animation
 - **Professional UI** - Modern, clean interface with smooth animations
 
@@ -22,8 +23,9 @@ A modern, full-stack React TypeScript application for tracking job applications 
 - **Frontend**: React 19, TypeScript, Vite
 - **Routing**: React Router DOM v7
 - **Styling**: CSS3 with Flexbox/Grid
-- **Backend**: Firebase (Authentication + Firestore)
-- **Deployment**: Firebase Hosting
+- **Backend**: JSON Server (REST API)
+- **Authentication**: localStorage (for demo purposes)
+- **Deployment**: Firebase Hosting (frontend only)
 - **Icons**: React Icons
 - **Build Tool**: Vite
 
@@ -48,48 +50,29 @@ cd React-TS-Job-Application-Tracker
 npm install
 ```
 
-### 3. Firebase Configuration
+### 3. Start the Application
 
-#### Create Firebase Project
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Click "Create a project"
-3. Follow the setup wizard
-
-#### Get Firebase Config
-1. In your Firebase project, click the gear icon → "Project settings"
-2. Scroll down to "Your apps" and click the web icon `</>`
-3. Register your app and copy the config object
-
-#### Update Firebase Config
-Replace the config in `src/firebase/config.ts` with your Firebase config:
-
-```typescript
-const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "your-app-id",
-  measurementId: "your-measurement-id"
-};
-```
-
-#### Enable Firebase Services
-1. **Authentication**:
-   - Go to Authentication → Sign-in method
-   - Enable "Email/Password" provider
-   
-2. **Firestore Database**:
-   - Go to Firestore Database → Create database
-   - Choose "Start in test mode" (rules will be updated automatically)
-
-### 4. Run the Application
+#### Option A: Run Both Servers Together (Recommended) 🚀
 ```bash
+npm run dev:full
+```
+This will start both JSON Server (port 3001) and React app (port 5174) simultaneously.
+
+#### Option B: Run Servers Separately
+```bash
+# Terminal 1 - Start JSON Server
+npm run json-server
+
+# Terminal 2 - Start React App
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173`
+### 4. Access the Application
+- **Frontend**: http://localhost:5174
+- **JSON Server API**: http://localhost:3001
+- **API Endpoints**:
+  - Job Applications: http://localhost:3001/jobApplications
+  - Users: http://localhost:3001/users
 
 ## 📁 Project Structure
 
@@ -106,11 +89,10 @@ src/
 │   ├── SignUpPage.tsx   # Sign up page
 │   └── WelcomePage.tsx  # Landing page
 ├── contexts/            # React contexts
-│   └── AuthContext.tsx  # Authentication context
-├── firebase/            # Firebase configuration
-│   ├── auth.ts         # Authentication functions
-│   ├── config.ts       # Firebase config
-│   └── firestore.ts    # Firestore database functions
+│   ├── AuthContext.tsx  # Authentication context
+│   └── NotificationContext.tsx  # Notification context
+├── services/            # API services
+│   └── api.ts          # JSON Server API functions
 ├── assets/             # Static assets
 │   ├── favicon.ico
 │   ├── landing.png
@@ -120,25 +102,25 @@ src/
 ├── main.tsx            # App entry point
 └── types.ts            # TypeScript type definitions
 
-public/
-├── Error.mp4           # 404 error page video
-└── vite.svg
-
-Firebase Files:
+Root Files:
+├── db.json             # JSON Server database
+├── package.json        # Dependencies and scripts
 ├── .firebaserc         # Firebase project configuration
-├── firebase.json       # Firebase hosting configuration
-├── firestore.rules     # Firestore security rules
-└── firestore.indexes.json  # Firestore indexes
+├── firebase.json       # Firebase hosting configuration (hosting only)
+└── public/
+    ├── Error.mp4       # 404 error page video
+    └── vite.svg
 ```
 
 ## 🎯 Usage
 
 ### Getting Started
-1. **Sign Up**: Create a new account with email and password
-2. **Login**: Access your personal dashboard
-3. **Add Applications**: Click "Add New Application" to track a job application
-4. **Manage Applications**: Edit, update status, or delete applications
-5. **Logout**: Securely logout when done
+1. **Sign Up**: Create a new account with any email and password (stored locally) 📝
+2. **Login**: Access your personal dashboard 🏠
+3. **Add Applications**: Click "Add New Application" to track a job application ➕
+4. **Search & Filter**: Use the search bar and filters to find specific applications 🔍
+5. **Manage Applications**: Edit, update status, or delete applications ✏️
+6. **Logout**: Securely logout when done 🚪
 
 ### Application Statuses
 - **Applied**: Initial application submitted
@@ -149,7 +131,7 @@ Firebase Files:
 
 ## 🚀 Deployment
 
-### Deploy to Firebase Hosting
+### Deploy to Firebase Hosting (Frontend Only)
 1. **Build the project**:
    ```bash
    npm run build
@@ -169,17 +151,25 @@ Your app will be deployed to: `https://your-project-id.web.app`
 
 ### Deploy to Other Platforms
 The built files in the `dist/` folder can be deployed to any static hosting service:
-- Netlify
-- Vercel
-- GitHub Pages
-- AWS S3
+- **Netlify** 🌐
+- **Vercel** ⚡
+- **GitHub Pages** 📄
+- **AWS S3** ☁️
 
-## 🔒 Security
+### 🔧 Production Considerations
+For production deployment, you'll need to:
+- Replace JSON Server with a proper backend (Node.js/Express, Python/Django, etc.)
+- Implement proper authentication (JWT, OAuth, etc.)
+- Use a production database (PostgreSQL, MongoDB, etc.)
+- Set up proper CORS configuration
 
-- **Authentication**: Firebase Authentication handles secure user management
-- **Database Rules**: Firestore rules ensure users can only access their own data
-- **HTTPS**: All connections are encrypted
-- **Input Validation**: Form inputs are validated on both client and server
+## 🔒 Security & Data
+
+- **Authentication**: Simple localStorage-based auth (for development only)
+- **Data Storage**: Local JSON file via JSON Server
+- **HTTPS**: Enabled when deployed to Firebase Hosting
+- **Input Validation**: Form inputs are validated on the client side
+- **Development Focus**: This setup is optimized for development and learning
 
 ## 🎨 Customization
 
@@ -190,36 +180,55 @@ The built files in the `dist/` folder can be deployed to any static hosting serv
 
 ### Adding Features
 - New components go in `src/components/`
-- Database functions in `src/firebase/firestore.ts`
+- API functions in `src/services/api.ts`
 - Types in `src/types.ts`
 
 ## 🐛 Troubleshooting
 
 ### Common Issues
 
-1. **Firebase Configuration Error**:
+1. **JSON Server Not Starting**:
    ```
-   Error: auth/configuration-not-found
+   Error: Cannot find module 'json-server'
    ```
-   **Solution**: Enable Email/Password authentication in Firebase Console
+   **Solution**: Run `npm install` to install all dependencies
 
-2. **Build Errors**:
+2. **Port Already in Use**:
+   ```
+   Error: Port 3001 is already in use
+   ```
+   **Solution**: Kill the process using the port or change the port in package.json
+
+3. **API Connection Issues**:
+   - Ensure JSON Server is running on port 3001
+   - Check that `http://localhost:3001/jobApplications` returns data
+   - Verify CORS settings if needed
+
+4. **Build Errors**:
    - Ensure all dependencies are installed: `npm install`
    - Check TypeScript errors: `npm run build`
 
-3. **Deployment Issues**:
-   - Verify Firebase CLI is installed: `firebase --version`
-   - Check project configuration: `firebase projects:list`
+5. **Authentication Issues**:
+   - Clear localStorage: `localStorage.clear()` in browser console
+   - Check browser's Application/Storage tab for stored data
 
-## 📝 Scripts
+## 📝 Available Scripts
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run preview      # Preview production build
-npm run lint         # Run ESLint
-firebase deploy      # Deploy to Firebase Hosting
-firebase serve       # Test Firebase hosting locally
+# Development
+npm run dev              # Start React development server only
+npm run json-server      # Start JSON Server only  
+npm run dev:full         # Start both servers simultaneously (recommended)
+
+# Production
+npm run build            # Build for production
+npm run preview          # Preview production build
+npm run lint             # Run ESLint
+
+# Deployment
+firebase login           # Login to Firebase
+firebase deploy          # Deploy to Firebase Hosting
+firebase serve           # Test Firebase hosting locally
 ```
 
 ## 🤝 Contributing
@@ -239,13 +248,64 @@ This project is licensed under the ISC License.
 **Sinenhlanhla Magubane**
 - GitHub: [@SineMag](https://github.com/SineMag)
 
+## 🌟 Key Features Explained
+
+### JSON Server Backend
+- **REST API**: Full CRUD operations via HTTP requests
+- **File-based Storage**: Data persists in `db.json` file
+- **Auto-reload**: Changes to `db.json` automatically update the API
+- **Easy Testing**: Direct API access at `http://localhost:3001`
+
+### Development Workflow
+1. **Start Development**: `npm run dev:full` 🚀
+2. **Make Changes**: Edit React components or API calls
+3. **Test Features**: Add/edit/delete job applications
+4. **View Data**: Check `db.json` to see stored data
+5. **Deploy**: Build and deploy frontend to Firebase Hosting
+
+## 🔄 Data Flow
+
+```
+React App (Frontend) ↔ JSON Server (Backend) ↔ db.json (Database)
+     Port 5174              Port 3001            File System
+```
+
+## 🎯 Perfect For
+
+- **Learning React & TypeScript** 📚
+- **API Integration Practice** 🔌
+- **Portfolio Projects** 💼
+- **Rapid Prototyping** ⚡
+- **Job Application Tracking** 📋
+
 ## 🙏 Acknowledgments
 
-- React team for the amazing framework
-- Firebase for backend services
-- Vite for the fast build tool
-- React Icons for the icon library
+- **React Team** for the amazing framework ⚛️
+- **JSON Server** for the simple backend solution 🗄️
+- **Firebase** for hosting services 🔥
+- **Vite** for the lightning-fast build tool ⚡
+- **React Icons** for the beautiful icon library 🎨
 
 ---
 
-**Happy Job Hunting! 🎯**
+## 🚀 Quick Start Summary
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/SineMag/React-TS-Job-Application-Tracker.git
+cd React-TS-Job-Application-Tracker
+
+# 2. Install dependencies
+npm install
+
+# 3. Start both servers
+npm run dev:full
+
+# 4. Open your browser
+# Frontend: http://localhost:5174
+# API: http://localhost:3001
+```
+
+---
+
+**Happy Job Hunting! 🎯✨**
