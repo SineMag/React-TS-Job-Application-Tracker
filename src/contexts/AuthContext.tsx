@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { getCurrentUser } from '../services/api';
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { getCurrentUser, signIn as apiSignIn, logOut as apiLogOut, signUp as apiSignUp } from '../services/api';
 
 interface User {
   id: string;
@@ -9,11 +9,17 @@ interface User {
 interface AuthContextType {
   currentUser: User | null;
   loading: boolean;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string) => Promise<void>;
+  logOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   currentUser: null,
   loading: true,
+  signIn: async () => {},
+  signUp: async () => {},
+  logOut: async () => {},
 });
 
 export const useAuth = () => {
@@ -21,7 +27,7 @@ export const useAuth = () => {
 };
 
 interface AuthProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
@@ -29,12 +35,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing user in localStorage
     const user = getCurrentUser();
     setCurrentUser(user);
     setLoading(false);
 
-    // Listen for storage changes (for logout from other tabs)
     const handleStorageChange = () => {
       const updatedUser = getCurrentUser();
       setCurrentUser(updatedUser);
@@ -44,9 +48,27 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
+  const signIn = async (email: string, password: string) => {
+    const user = await apiSignIn(email, password);
+    setCurrentUser(user);
+  };
+
+  const signUp = async (email: string, password: string) => {
+    const user = await apiSignUp(email, password);
+    setCurrentUser(user);
+  };
+
+  const logOut = async () => {
+    await apiLogOut();
+    setCurrentUser(null);
+  };
+
   const value = {
     currentUser,
     loading,
+    signIn,
+    signUp,
+    logOut,
   };
 
   return (

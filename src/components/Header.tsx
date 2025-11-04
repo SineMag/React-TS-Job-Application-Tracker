@@ -1,17 +1,17 @@
 import { Link } from "react-router-dom";
-import { logOut } from "../services/api";
+import { useAuth } from "../contexts/AuthContext";
 
 interface HeaderProps {
   showLogout?: boolean;
 }
 
 export default function Header({ showLogout = false }: HeaderProps) {
+  const { logOut } = useAuth();
 
   const handleLogout = async () => {
     try {
       await logOut();
-      // Force a page reload to update the auth context
-      window.location.href = '/';
+      // The AuthProvider will handle the state update and redirect
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -21,11 +21,11 @@ export default function Header({ showLogout = false }: HeaderProps) {
     <nav>
       <div className="logo">
         <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <h2>Job Application Tracker</h2>
+          <h2>JobTrack</h2>
         </Link>
       </div>
       <div className="rightNav">
-        <ul style={{ listStyleType: "none" }}>
+        <ul style={{ listStyleType: "none", display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
           {showLogout ? (
             <>
               <li><Link to="/dashboard">Dashboard</Link></li>

@@ -33,7 +33,7 @@ export const updateJobApplication = async (applicationId: string, updates: Parti
     },
     body: JSON.stringify({
       ...updates,
-      dateApplied: updates.dateApplied ? updates.dateApplied.toISOString() : undefined,
+      dateApplied: updates.dateApplied ? (updates.dateApplied as Date).toISOString() : undefined,
       updatedAt: new Date().toISOString()
     }),
   });

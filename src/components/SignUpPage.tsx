@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { FiArrowLeftCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { signUp, signIn } from "../services/api";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
+  const { signIn, signUp } = useAuth();
   const [isLogin, setIsLogin] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -20,11 +21,10 @@ export default function SignUpPage() {
     try {
       if (isLogin) {
         await signIn(email, password);
-        navigate('/dashboard');
       } else {
         await signUp(email, password);
-        navigate('/dashboard');
       }
+      navigate('/dashboard');
     } catch (error: any) {
       setError(error.message);
     } finally {

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { FiArrowLeftCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { signIn } from "../services/api";
+import { useAuth } from "../contexts/AuthContext";
 import { useNotification } from "../contexts/NotificationContext";
 
 export default function LogInPage() {
   const navigate = useNavigate();
   const { showNotification } = useNotification();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
