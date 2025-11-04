@@ -1,4 +1,5 @@
 import "./App.css";
+<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
@@ -44,6 +45,33 @@ function App() {
           <AppContent />
         </Router>
       </NotificationProvider>
+=======
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import WelcomePage from "./pages/WelcomePage";
+import Footer from "./components/Footer";
+import SignUpPage from "./pages/SignUpPage";
+import LogInPage from "./pages/LogInPage";
+import Error404 from "./pages/Error404";
+import Dashboard from "./pages/Dashboard";
+import { AuthProvider } from "./components/AuthContext";
+import JobDetails from "./pages/JobDetails"
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <div className="landingPage">
+          <Routes>
+            <Route path="/" element={<WelcomePage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/login" element={<LogInPage />} />
+            <Route path="*" element={<Error404 />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/job-details" element={<JobDetails />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+>>>>>>> 7fca742ce54faa43bf5f46c538852efbc5fd9324
     </AuthProvider>
   );
 }

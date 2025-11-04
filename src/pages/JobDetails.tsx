@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useNotification } from "../contexts/NotificationContext";
 
+<<<<<<< HEAD:src/components/LogInPage.tsx
 export default function LogInPage() {
   const navigate = useNavigate();
   const { showNotification } = useNotification();
@@ -28,6 +29,9 @@ export default function LogInPage() {
     }
   };
 
+=======
+export default function JobDetails() {
+>>>>>>> 7fca742ce54faa43bf5f46c538852efbc5fd9324:src/pages/JobDetails.tsx
   return (
     <div className="signUpPage">
       {/* Top Nav with back arrow */}

@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "jobApplications": [
     {
       "id": "dd39",
@@ -50,6 +51,86 @@
       "id": "1",
       "email": "demo@example.com",
       "password": "demo123"
+=======
+  "users": [
+    {
+      "id": "cae4",
+      "name": "1",
+      "email": "1@g.com",
+      "password": "1"
+    },
+    {
+      "id": "1dfb",
+      "name": "1",
+      "email": "1@gmail.com",
+      "password": "11"
+    },
+    {
+      "id": "9565",
+      "name": "Sinenhlanhla Magubane",
+      "email": "sm@mial.com",
+      "password": "11"
+    },
+    {
+      "id": "07df",
+      "name": "Sinenhlanhla Magubane",
+      "email": "sm@mail.com",
+      "password": "11"
+    },
+    {
+      "id": "b62f",
+      "name": "User",
+      "email": "mail@mail.com",
+      "password": "1"
+    },
+    {
+      "id": "11e1",
+      "name": "User Name",
+      "email": "em@il.com",
+      "password": "1"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "a490",
+      "company": "11",
+      "role": "11",
+      "status": "11",
+      "dateApplied": "2025-09-03",
+      "duties": "11",
+      "requirements": "11",
+      "userId": "1dfb"
+    },
+    {
+      "id": "9290",
+      "company": "Job",
+      "role": "Job",
+      "status": "Job",
+      "dateApplied": "2025-09-10",
+      "duties": "Job",
+      "requirements": "Job",
+      "userId": "1dfb"
+    },
+    {
+      "id": "1b52",
+      "company": "Company",
+      "role": "Role",
+      "status": "Status",
+      "dateApplied": "2025-09-11",
+      "duties": "Duties",
+      "requirements": "Requirements",
+      "userId": "07df"
+    },
+    {
+      "company": "mLab",
+      "role": "Role",
+      "status": "Applied",
+      "dateApplied": "2025-09-12",
+      "duties": "Full-Stack Trainee",
+      "requirements": "Yourself",
+      "userId": "9565",
+      "id": "7aeb"
+>>>>>>> 7fca742ce54faa43bf5f46c538852efbc5fd9324
     }
   ]
 }

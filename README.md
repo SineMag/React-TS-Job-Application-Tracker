@@ -2,6 +2,7 @@
 
 # 📋 Job Application Tracker
 
+<<<<<<< HEAD
 A modern, full-stack React TypeScript application for tracking job applications with JSON Server backend. Built with Vite, React Router, and localStorage authentication for simplicity and ease of development.
 
 ## 🚀 Live Demo
@@ -311,3 +312,14 @@ npm run dev:full
 ---
 
 **Happy Job Hunting! 🎯✨**
+=======
+GET /users - This retrieves a list of all resource entities of users.
+GET /users/:id - This retrieves a specific user by its id.
+POST /users - This creates a new user.
+PUT /users/:id - This updates a user based on a specified id.
+DELETE /users/:id - This deletes a user based on the specified id.
+
+installing the Snackbar compponent
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/icons-material
+>>>>>>> 7fca742ce54faa43bf5f46c538852efbc5fd9324

@@ -6,7 +6,16 @@ export default function Welcome() {
   return (
     <div className="welcomePage">
       {/* navigation */}
+<<<<<<< HEAD:src/components/WelcomePage.tsx
       <Header showLogout={false} />
+=======
+      <nav style={{backgroundColor:"black", color:"white"}}>
+        <div className="logo" style={{color:'white'}}>
+          <h2>Job Application Tracker</h2>
+        </div>
+     
+      </nav>
+>>>>>>> 7fca742ce54faa43bf5f46c538852efbc5fd9324:src/pages/WelcomePage.tsx
 
       {/* hero */}
       <div className="hero">
@@ -36,7 +45,7 @@ export default function Welcome() {
         </div>
       </div>
 
-      {/* background circles */}
+      {/*yellow circles */}
       <div className="circles">
         <hr style={{ border: "none", width: "50px", height: "50px", borderRadius: "50%", backgroundColor: "#DBFA87" }} />
         <hr style={{ border: "none", width: "100px", height: "100px", borderRadius: "50%", backgroundColor: "#DBFA87" }} />
