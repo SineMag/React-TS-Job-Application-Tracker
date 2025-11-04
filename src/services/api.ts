@@ -1,6 +1,6 @@
 import type { JobApplication } from '../types';
 
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'https://job-application-tracker-f6g1.onrender.com';
 
 export const addJobApplication = async (userId: string, application: Omit<JobApplication, 'id'>): Promise<string> => {
   const response = await fetch(`${API_BASE_URL}/jobApplications`, {

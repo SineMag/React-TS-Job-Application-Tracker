@@ -23,6 +23,10 @@ export default function Dashboard() {
 
   // Load applications from Firestore on component mount
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
     const loadApplications = async () => {
       if (currentUser) {
         try {
@@ -31,12 +35,15 @@ export default function Dashboard() {
         } catch (error) {
           console.error('Error loading applications:', error);
         } finally {
+          clearTimeout(timer);
           setLoading(false);
         }
       }
     };
 
     loadApplications();
+
+    return () => clearTimeout(timer);
   }, [currentUser]);
 
   const handleAddApplication = async (newApplication: Omit<JobApplication, 'id'>) => {
