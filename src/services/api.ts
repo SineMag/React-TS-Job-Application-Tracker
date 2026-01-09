@@ -1,6 +1,6 @@
 import type { JobApplication } from "../types";
 
-const API_BASE_URL = "https://job-tracker-api-b31h.onrender.com";
+const API_BASE_URL = "/api";
 
 export const addJobApplication = async (
   userId: string,

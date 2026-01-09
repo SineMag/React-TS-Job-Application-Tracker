@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
 import type { JobApplication } from "../types";
+import React from "react";
 
-interface JobApplicationFormProps {
+type Props = {
+  onClose?: () => void;
   onSubmit: (
     application: JobApplication | Omit<JobApplication, "id">
   ) => void | Promise<void>;
   onCancel: () => void;
   initialData?: JobApplication | null;
-}
+};
 
 export default function JobApplicationForm({
+  onClose,
   onSubmit,
   onCancel,
   initialData,
-}: JobApplicationFormProps) {
+}: Props) {
   const [formData, setFormData] = useState({
     company: "",
     position: "",
@@ -36,7 +39,11 @@ export default function JobApplicationForm({
     }
   }, [initialData]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleCancel = () => {
+    onClose?.();
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const applicationData = {
@@ -49,6 +56,7 @@ export default function JobApplicationForm({
     } else {
       onSubmit(applicationData);
     }
+    onClose?.(); // close modal after save
   };
 
   const handleChange = (
@@ -61,13 +69,20 @@ export default function JobApplicationForm({
   };
 
   return (
-    <div className="formOverlay">
-      <div className="jobApplicationForm">
+    <div className="form-backdrop">
+      <div className="job-form-card">
+        <button
+          className="form-close"
+          onClick={handleCancel}
+          aria-label="Close"
+        >
+          ×
+        </button>
         <h2>{initialData ? "Edit Application" : "Add New Application"}</h2>
 
         <form onSubmit={handleSubmit}>
           <div className="formGroup">
-            <label htmlFor="company">Company</label>
+            <label htmlFor="company">Company Name</label>
             <input
               type="text"
               id="company"
@@ -133,11 +148,11 @@ export default function JobApplicationForm({
             />
           </div>
 
-          <div className="formActions">
-            <button type="submit" className="submitButton">
+          <div className="form-actions">
+            <button type="submit" className="btn primary">
               {initialData ? "Update" : "Add"} Application
             </button>
-            <button type="button" className="cancelButton" onClick={onCancel}>
+            <button type="button" className="btn ghost" onClick={handleCancel}>
               Cancel
             </button>
           </div>

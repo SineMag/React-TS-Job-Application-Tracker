@@ -5,13 +5,6 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Proxy API requests to the JSON server
-app.use('/api', createProxyMiddleware({
-  target: 'http://localhost:3001',
-  changeOrigin: true,
-  pathRewrite: { '^/api': '' },
-}));
-
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'dist')));
 

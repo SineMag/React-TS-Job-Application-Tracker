@@ -12,7 +12,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import SignUpPage from "./pages/SignUpPage";
 import LogInPage from "./pages/LogInPage";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./components/Dashboard";
 import Error404 from "./pages/Error404";
 import JobDetails from "./pages/JobDetails";
 import Snackbar from "./components/Snackbar";

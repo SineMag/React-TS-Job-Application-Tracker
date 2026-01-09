@@ -185,9 +185,13 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
       <div className="dashboardHeader">
-        <h1>Job Application Dashboard</h1>
-        <button className="addButton" onClick={() => setShowForm(true)}>
-          Add New Application
+        <h1>Your Applications</h1>
+        <button
+          className="addButton" // matches App.css
+          onClick={() => setShowForm(true)}
+          aria-label="Add New Job Application"
+        >
+          + Add New Job Application
         </button>
       </div>
 

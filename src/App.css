@@ -1,4 +1,55 @@
-/* Reset and Base Styles */
+/* ...existing code... */
+
+.add-job-btn{
+  background: #ffffff;
+  color: #264653;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(38,70,83,0.06);
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.add-job-btn:hover{ transform: translateY(-3px); box-shadow: 0 10px 24px rgba(38,70,83,0.08); }
+
+/* centered modal/form backdrop */
+.form-backdrop{
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(12,16,20,0.45);
+  z-index: 60;
+}
+.job-form-card{
+  width: 640px;
+  max-width: calc(100% - 48px);
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 18px 50px rgba(10,12,14,0.25);
+  position: relative;
+}
+.form-close{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* make cards half-screen width and centered in grid */
+.app-card{
+  width: 48%;
+  margin: 0 auto;
+  min-width: 280px;
+}
+
+/* ...existing code... *//* Reset and Base Styles */
 * {
   padding: 0;
   margin: 0;
@@ -895,21 +946,18 @@ nav {
 
 .applicationsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(48%, 1fr));
+  grid-template-columns: 1fr; /* Changed to always be 1fr */
   gap: 2rem;
   justify-items: center;
+  justify-content: center; /* Added to center the grid itself */
 }
 
 @media (max-width: 1024px) {
-  .applicationsGrid {
-    grid-template-columns: 1fr;
-    justify-items: stretch;
-  }
+
 }
 
 .applicationCard {
   width: 100%;
-  max-width: 600px;
   background: var(--white);
   border-radius: 12px;
   padding: 2rem;
@@ -919,7 +967,6 @@ nav {
 }
 
 .applicationCard:hover {
-  transform: translateY(-8px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
 
@@ -1393,9 +1440,7 @@ nav {
 
 /* Responsive Design Enhancements */
 @media (max-width: 1024px) {
-  .applicationsGrid {
-    grid-template-columns: 1fr;
-  }
+
 
   .filtersRow {
     grid-template-columns: 1fr;
@@ -1403,7 +1448,7 @@ nav {
 
   .dashboardHeader {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* Changed from flex-start to center */
     gap: 1rem;
   }
 
