@@ -1,5 +1,16 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import { getCurrentUser, signIn as apiSignIn, logOut as apiLogOut, signUp as apiSignUp } from '../services/api';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
+import {
+  getCurrentUser,
+  signIn as apiSignIn,
+  logOut as apiLogOut,
+  signUp as apiSignUp,
+} from "../services/api";
 
 interface User {
   id: string;
@@ -23,7 +34,11 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };
 
 interface AuthProviderProps {
@@ -35,17 +50,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const user = getCurrentUser();
-    setCurrentUser(user);
-    setLoading(false);
+    try {
+      const user = getCurrentUser();
+      console.log("Current user loaded:", user);
+      setCurrentUser(user);
+      setLoading(false);
 
-    const handleStorageChange = () => {
-      const updatedUser = getCurrentUser();
-      setCurrentUser(updatedUser);
-    };
+      const handleStorageChange = () => {
+        const updatedUser = getCurrentUser();
+        setCurrentUser(updatedUser);
+      };
 
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+      window.addEventListener("storage", handleStorageChange);
+      return () => window.removeEventListener("storage", handleStorageChange);
+    } catch (error) {
+      console.error("Error in AuthProvider:", error);
+      setLoading(false);
+    }
   }, []);
 
   const signIn = async (email: string, password: string) => {
@@ -71,9 +92,5 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     logOut,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

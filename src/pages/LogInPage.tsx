@@ -1,72 +1,41 @@
 import React, { useState } from "react";
 import { FiArrowLeftCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../components/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
+import { useNotification } from "../contexts/NotificationContext";
 
 export default function LogInPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { signUp, signIn } = useAuth();
+  const { showNotification } = useNotification();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-
-  const API_URL = "http://localhost:3000/users";
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
-    if (isLogin) {
-      // LOGIN
-      try {
-        const res = await fetch(`${API_URL}?email=${email}&password=${password}`);
-        const data = await res.json();
-
-        if (data.length > 0) {
-          login(data[0]);
-          setMessage(`✅ Welcome back, ${data[0].name}!`);
-          navigate("/dashboard");
-        } else {
-          setMessage("❌ Invalid email or password");
-        }
-      } catch (err) {
-        console.error("Login error:", err);
-        setMessage("⚠️ Login failed. Try again later.");
+    try {
+      if (isLogin) {
+        await signIn(email, password);
+        showNotification("Successfully logged in!", "success");
+        navigate("/dashboard");
+      } else {
+        await signUp(email, password);
+        showNotification("Account created successfully!", "success");
+        navigate("/dashboard");
       }
-    } else {
-      // SIGNUP
-      try {
-        const checkRes = await fetch(`${API_URL}?email=${email}`);
-        const existingUsers = await checkRes.json();
-
-        if (existingUsers.length > 0) {
-          setMessage("❌ Email already registered. Please login.");
-        } else {
-          const newUser = { name: email.split('@')[0], email, password };
-          const res = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newUser),
-          });
-
-          if (res.ok) {
-            const createdUser = await res.json();
-            login(createdUser);
-            setMessage("✅ Account created! Logging in...");
-            setIsLogin(true);
-          } else {
-            setMessage("⚠️ Failed to sign up. Try again.");
-          }
-        }
-      } catch (err) {
-        console.error("Signup error:", err);
-        setMessage("⚠️ Signup failed. Try again later.");
-      }
+    } catch (error) {
+      const errorMsg =
+        error instanceof Error ? error.message : "Authentication failed";
+      showNotification(errorMsg, "error");
+    } finally {
+      setLoading(false);
+      setEmail("");
+      setPassword("");
     }
-
-    // Reset form
-    setEmail("");
-    setPassword("");
   };
 
   return (
@@ -86,8 +55,6 @@ export default function LogInPage() {
       {/* Auth Form */}
       <div className="authForm">
         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
-
-        {message && <p className="statusMessage">{message}</p>}
 
         <form onSubmit={handleSubmit}>
           <div className="formGroup">
@@ -114,8 +81,8 @@ export default function LogInPage() {
             />
           </div>
 
-          <button type="submit" className="logButton">
-            {isLogin ? "Login" : "Sign Up"}
+          <button type="submit" className="logButton" disabled={loading}>
+            {loading ? "Please wait..." : isLogin ? "Login" : "Sign Up"}
           </button>
         </form>
 

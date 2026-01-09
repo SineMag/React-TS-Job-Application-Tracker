@@ -1,19 +1,25 @@
-import { useState, useEffect } from 'react';
-import type { JobApplication } from '../types';
+import { useState, useEffect } from "react";
+import type { JobApplication } from "../types";
 
 interface JobApplicationFormProps {
-  onSubmit: (application: JobApplication | Omit<JobApplication, 'id'>) => void | Promise<void>;
+  onSubmit: (
+    application: JobApplication | Omit<JobApplication, "id">
+  ) => void | Promise<void>;
   onCancel: () => void;
   initialData?: JobApplication | null;
 }
 
-export default function JobApplicationForm({ onSubmit, onCancel, initialData }: JobApplicationFormProps) {
+export default function JobApplicationForm({
+  onSubmit,
+  onCancel,
+  initialData,
+}: JobApplicationFormProps) {
   const [formData, setFormData] = useState({
-    company: '',
-    position: '',
-    status: 'Applied' as JobApplication['status'],
-    dateApplied: new Date().toISOString().split('T')[0],
-    notes: ''
+    company: "",
+    position: "",
+    status: "Applied" as JobApplication["status"],
+    dateApplied: new Date().toISOString().split("T")[0],
+    notes: "",
   });
 
   useEffect(() => {
@@ -22,18 +28,20 @@ export default function JobApplicationForm({ onSubmit, onCancel, initialData }: 
         company: initialData.company,
         position: initialData.position,
         status: initialData.status,
-        dateApplied: new Date(initialData.dateApplied).toISOString().split('T')[0],
-        notes: initialData.notes || ''
+        dateApplied: new Date(initialData.dateApplied)
+          .toISOString()
+          .split("T")[0],
+        notes: initialData.notes || "",
       });
     }
   }, [initialData]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const applicationData = {
       ...formData,
-      dateApplied: new Date(formData.dateApplied)
+      dateApplied: new Date(formData.dateApplied),
     };
 
     if (initialData) {
@@ -43,16 +51,20 @@ export default function JobApplicationForm({ onSubmit, onCancel, initialData }: 
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <div className="formOverlay">
-      <div className="applicationForm">
-        <h2>{initialData ? 'Edit Application' : 'Add New Application'}</h2>
-        
+      <div className="jobApplicationForm">
+        <h2>{initialData ? "Edit Application" : "Add New Application"}</h2>
+
         <form onSubmit={handleSubmit}>
           <div className="formGroup">
             <label htmlFor="company">Company</label>
@@ -62,6 +74,7 @@ export default function JobApplicationForm({ onSubmit, onCancel, initialData }: 
               name="company"
               value={formData.company}
               onChange={handleChange}
+              placeholder="Enter company name"
               required
             />
           </div>
@@ -74,6 +87,7 @@ export default function JobApplicationForm({ onSubmit, onCancel, initialData }: 
               name="position"
               value={formData.position}
               onChange={handleChange}
+              placeholder="Enter job position"
               required
             />
           </div>
@@ -88,7 +102,9 @@ export default function JobApplicationForm({ onSubmit, onCancel, initialData }: 
               required
             >
               <option value="Applied">Applied</option>
+              <option value="Pending">Pending</option>
               <option value="Interview">Interview</option>
+              <option value="Offer">Offer</option>
               <option value="Rejected">Rejected</option>
             </select>
           </div>
@@ -106,19 +122,20 @@ export default function JobApplicationForm({ onSubmit, onCancel, initialData }: 
           </div>
 
           <div className="formGroup">
-            <label htmlFor="notes">Description (Optional)</label>
+            <label htmlFor="notes">Notes (Optional)</label>
             <textarea
               id="notes"
               name="notes"
               value={formData.notes}
               onChange={handleChange}
+              placeholder="Add any additional notes about this application..."
               rows={3}
             />
           </div>
 
-          <div className="formButtons">
+          <div className="formActions">
             <button type="submit" className="submitButton">
-              {initialData ? 'Update' : 'Add'} Application
+              {initialData ? "Update" : "Add"} Application
             </button>
             <button type="button" className="cancelButton" onClick={onCancel}>
               Cancel

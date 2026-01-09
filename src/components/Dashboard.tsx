@@ -1,11 +1,16 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import type { JobApplication } from '../types';
-import { useAuth } from '../contexts/AuthContext';
-import { useNotification } from '../contexts/NotificationContext';
-import { getUserJobApplications, addJobApplication, updateJobApplication, deleteJobApplication } from '../services/api';
-import JobApplicationForm from './JobApplicationForm';
-import JobApplicationList from './JobApplicationList';
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import type { JobApplication } from "../types";
+import { useAuth } from "../contexts/AuthContext";
+import { useNotification } from "../contexts/NotificationContext";
+import {
+  getUserJobApplications,
+  addJobApplication,
+  updateJobApplication,
+  deleteJobApplication,
+} from "../services/api";
+import JobApplicationForm from "./JobApplicationForm";
+import JobApplicationList from "./JobApplicationList";
 
 export default function Dashboard() {
   const { currentUser } = useAuth();
@@ -13,13 +18,14 @@ export default function Dashboard() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [showForm, setShowForm] = useState(false);
-  const [editingApplication, setEditingApplication] = useState<JobApplication | null>(null);
+  const [editingApplication, setEditingApplication] =
+    useState<JobApplication | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Get URL parameters
-  const searchQuery = searchParams.get('search') || '';
-  const filterStatus = searchParams.get('filter') || '';
-  const sortOrder = searchParams.get('sort') || '';
+  const searchQuery = searchParams.get("search") || "";
+  const filterStatus = searchParams.get("filter") || "";
+  const sortOrder = searchParams.get("sort") || "";
 
   // Load applications from Firestore on component mount
   useEffect(() => {
@@ -33,7 +39,7 @@ export default function Dashboard() {
           const userApplications = await getUserJobApplications(currentUser.id);
           setApplications(userApplications);
         } catch (error) {
-          console.error('Error loading applications:', error);
+          console.error("Error loading applications:", error);
         } finally {
           clearTimeout(timer);
           setLoading(false);
@@ -46,56 +52,77 @@ export default function Dashboard() {
     return () => clearTimeout(timer);
   }, [currentUser]);
 
-  const handleAddApplication = async (newApplication: Omit<JobApplication, 'id'>) => {
+  const handleAddApplication = async (
+    newApplication: Omit<JobApplication, "id">
+  ) => {
     if (!currentUser) return;
-    
+
     try {
       const docId = await addJobApplication(currentUser.id, newApplication);
       const application: JobApplication = {
         ...newApplication,
         id: docId,
       };
-      setApplications(prev => [...prev, application]);
+      setApplications((prev) => [...prev, application]);
       setShowForm(false);
-      showNotification(`Successfully added application for ${newApplication.position} at ${newApplication.company}!`, 'success');
+      showNotification(
+        `Successfully added application for ${newApplication.position} at ${newApplication.company}!`,
+        "success"
+      );
     } catch (error) {
-      console.error('Error adding application:', error);
-      showNotification('Failed to add job application. Please try again.', 'error');
+      console.error("Error adding application:", error);
+      showNotification(
+        "Failed to add job application. Please try again.",
+        "error"
+      );
     }
   };
 
   const handleEditApplication = async (updatedApplication: JobApplication) => {
+    if (!currentUser) return;
+
     try {
-      await updateJobApplication(updatedApplication.id, updatedApplication);
-      setApplications(prev => 
-        prev.map(app => app.id === updatedApplication.id ? updatedApplication : app)
+      await updateJobApplication(
+        currentUser.id,
+        updatedApplication.id,
+        updatedApplication
+      );
+      setApplications((prev) =>
+        prev.map((app) =>
+          app.id === updatedApplication.id ? updatedApplication : app
+        )
       );
       setEditingApplication(null);
       setShowForm(false);
     } catch (error) {
-      console.error('Error updating application:', error);
+      console.error("Error updating application:", error);
     }
   };
 
   const handleDeleteApplication = async (id: string) => {
+    if (!currentUser) return;
+
     try {
       // Get the application details before deletion for the notification
-      const applicationToDelete = applications.find(app => app.id === id);
-      await deleteJobApplication(id);
-      setApplications(prev => prev.filter(app => app.id !== id));
-      
+      const applicationToDelete = applications.find((app) => app.id === id);
+      await deleteJobApplication(currentUser.id, id);
+      setApplications((prev) => prev.filter((app) => app.id !== id));
+
       // Show success notification
       if (applicationToDelete) {
         showNotification(
-          `Successfully deleted application for ${applicationToDelete.position} at ${applicationToDelete.company}!`, 
-          'success'
+          `Successfully deleted application for ${applicationToDelete.position} at ${applicationToDelete.company}!`,
+          "success"
         );
       } else {
-        showNotification('Job application deleted successfully!', 'success');
+        showNotification("Job application deleted successfully!", "success");
       }
     } catch (error) {
-      console.error('Error deleting application:', error);
-      showNotification('Failed to delete job application. Please try again.', 'error');
+      console.error("Error deleting application:", error);
+      showNotification(
+        "Failed to delete job application. Please try again.",
+        "error"
+      );
     }
   };
 
@@ -111,22 +138,27 @@ export default function Dashboard() {
 
   // Filter, search, and sort applications
   const filteredAndSortedApplications = applications
-    .filter(app => {
+    .filter((app) => {
       // Search filter
-      const matchesSearch = searchQuery === '' || 
+      const matchesSearch =
+        searchQuery === "" ||
         app.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
         app.position.toLowerCase().includes(searchQuery.toLowerCase());
-      
+
       // Status filter
-      const matchesStatus = filterStatus === '' || app.status === filterStatus;
-      
+      const matchesStatus = filterStatus === "" || app.status === filterStatus;
+
       return matchesSearch && matchesStatus;
     })
     .sort((a, b) => {
-      if (sortOrder === 'date-asc') {
-        return new Date(a.dateApplied).getTime() - new Date(b.dateApplied).getTime();
-      } else if (sortOrder === 'date-desc') {
-        return new Date(b.dateApplied).getTime() - new Date(a.dateApplied).getTime();
+      if (sortOrder === "date-asc") {
+        return (
+          new Date(a.dateApplied).getTime() - new Date(b.dateApplied).getTime()
+        );
+      } else if (sortOrder === "date-desc") {
+        return (
+          new Date(b.dateApplied).getTime() - new Date(a.dateApplied).getTime()
+        );
       }
       return 0; // No sorting
     });
@@ -154,10 +186,7 @@ export default function Dashboard() {
     <div className="dashboard">
       <div className="dashboardHeader">
         <h1>Job Application Dashboard</h1>
-        <button 
-          className="addButton"
-          onClick={() => setShowForm(true)}
-        >
+        <button className="addButton" onClick={() => setShowForm(true)}>
           Add New Application
         </button>
       </div>
@@ -169,18 +198,18 @@ export default function Dashboard() {
             type="text"
             placeholder="Search by company or position..."
             value={searchQuery}
-            onChange={(e) => updateSearchParams('search', e.target.value)}
+            onChange={(e) => updateSearchParams("search", e.target.value)}
             className="searchInput"
           />
         </div>
-        
+
         <div className="filtersRow">
           <div className="filterGroup">
             <label htmlFor="statusFilter">Filter by Status:</label>
             <select
               id="statusFilter"
               value={filterStatus}
-              onChange={(e) => updateSearchParams('filter', e.target.value)}
+              onChange={(e) => updateSearchParams("filter", e.target.value)}
               className="filterSelect"
             >
               <option value="">All Statuses</option>
@@ -189,13 +218,13 @@ export default function Dashboard() {
               <option value="Rejected">Rejected</option>
             </select>
           </div>
-          
+
           <div className="filterGroup">
             <label htmlFor="sortOrder">Sort by Date:</label>
             <select
               id="sortOrder"
               value={sortOrder}
-              onChange={(e) => updateSearchParams('sort', e.target.value)}
+              onChange={(e) => updateSearchParams("sort", e.target.value)}
               className="filterSelect"
             >
               <option value="">No Sorting</option>
@@ -208,9 +237,11 @@ export default function Dashboard() {
 
       {showForm && (
         <JobApplicationForm
-          onSubmit={editingApplication ? 
-            (app: JobApplication | Omit<JobApplication, 'id'>) => handleEditApplication(app as JobApplication) :
-            handleAddApplication
+          onSubmit={
+            editingApplication
+              ? (app: JobApplication | Omit<JobApplication, "id">) =>
+                  handleEditApplication(app as JobApplication)
+              : handleAddApplication
           }
           onCancel={cancelForm}
           initialData={editingApplication}
