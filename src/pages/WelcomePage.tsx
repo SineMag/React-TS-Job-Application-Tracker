@@ -1,21 +1,12 @@
 import { Link } from "react-router-dom";
 import WelcomeImage from "../assets/landing.png";
-import Header from "./Header";
+
 
 export default function Welcome() {
   return (
     <div className="welcomePage">
       {/* navigation */}
-<<<<<<< HEAD:src/components/WelcomePage.tsx
-      <Header showLogout={false} />
-=======
-      <nav style={{backgroundColor:"black", color:"white"}}>
-        <div className="logo" style={{color:'white'}}>
-          <h2>Job Application Tracker</h2>
-        </div>
-     
-      </nav>
->>>>>>> 7fca742ce54faa43bf5f46c538852efbc5fd9324:src/pages/WelcomePage.tsx
+
 
       {/* hero */}
       <div className="hero">
