@@ -1,6 +1,12 @@
 import type { JobApplication } from "../types";
 
-const API_BASE_URL = "/api";
+// Use environment variable for API URL, fallback to /api for development proxy
+// Remove trailing slash if present
+const getApiBaseUrl = () => {
+  const url = import.meta.env.VITE_API_URL || "/api";
+  return url.endsWith("/") ? url.slice(0, -1) : url;
+};
+const API_BASE_URL = getApiBaseUrl();
 
 export const addJobApplication = async (
   userId: string,
@@ -10,26 +16,40 @@ export const addJobApplication = async (
     application.dateApplied instanceof Date
       ? application.dateApplied
       : new Date(application.dateApplied);
-  const response = await fetch(`${API_BASE_URL}/jobApplications`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      ...application,
-      userId,
-      dateApplied: dateApplied.toISOString(),
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    }),
-  });
+  const url = `${API_BASE_URL}/jobApplications`;
+  console.log("API_BASE_URL:", API_BASE_URL);
+  console.log("POST to:", url);
+  
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...application,
+        userId,
+        dateApplied: dateApplied.toISOString(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }),
+    });
 
-  if (!response.ok) {
-    throw new Error("Failed to add job application");
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("API Error:", response.status, errorText);
+      throw new Error(`Failed to add job application: ${response.status} ${errorText}`);
+    }
+
+    const data = await response.json();
+    return data.id;
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      console.error("Network error:", error);
+      throw new Error("Failed to fetch: Backend server may not be running. Please start it with 'npm run backend' or 'cd backend && npm start'");
+    }
+    throw error;
   }
-
-  const data = await response.json();
-  return data.id;
 };
 
 export const updateJobApplication = async (
@@ -47,19 +67,29 @@ export const updateJobApplication = async (
   }
   body.updatedAt = new Date().toISOString();
 
-  const response = await fetch(
-    `${API_BASE_URL}/jobApplications/${applicationId}`,
-    {
+  const url = `${API_BASE_URL}/jobApplications/${applicationId}`;
+  console.log("PATCH to:", url);
+  
+  try {
+    const response = await fetch(url, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    }
-  );
+    });
 
-  if (!response.ok) {
-    throw new Error("Failed to update job application");
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("API Error:", response.status, errorText);
+      throw new Error(`Failed to update job application: ${response.status} ${errorText}`);
+    }
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      console.error("Network error:", error);
+      throw new Error("Failed to fetch: Backend server may not be running. Please start it with 'npm run backend' or 'cd backend && npm start'");
+    }
+    throw error;
   }
 };
 
@@ -67,39 +97,60 @@ export const deleteJobApplication = async (
   _userId: string,
   applicationId: string
 ): Promise<void> => {
-  const response = await fetch(
-    `${API_BASE_URL}/jobApplications/${applicationId}`,
-    {
+  const url = `${API_BASE_URL}/jobApplications/${applicationId}`;
+  console.log("DELETE to:", url);
+  
+  try {
+    const response = await fetch(url, {
       method: "DELETE",
-    }
-  );
+    });
 
-  if (!response.ok) {
-    throw new Error("Failed to delete job application");
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("API Error:", response.status, errorText);
+      throw new Error(`Failed to delete job application: ${response.status} ${errorText}`);
+    }
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      console.error("Network error:", error);
+      throw new Error("Failed to fetch: Backend server may not be running. Please start it with 'npm run backend' or 'cd backend && npm start'");
+    }
+    throw error;
   }
 };
 
 export const getUserJobApplications = async (
   userId: string
 ): Promise<JobApplication[]> => {
-  const response = await fetch(
-    `${API_BASE_URL}/jobApplications?userId=${userId}&_sort=createdAt&_order=desc`
-  );
+  const url = `${API_BASE_URL}/jobApplications?userId=${userId}&_sort=createdAt&_order=desc`;
+  console.log("GET to:", url);
+  
+  try {
+    const response = await fetch(url);
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch job applications");
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("API Error:", response.status, errorText);
+      throw new Error(`Failed to fetch job applications: ${response.status} ${errorText}`);
+    }
+
+    const data = await response.json();
+
+    return data.map((item: any) => ({
+      id: item.id,
+      company: item.company,
+      position: item.position,
+      status: item.status,
+      dateApplied: new Date(item.dateApplied),
+      notes: item.notes || "",
+    }));
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      console.error("Network error:", error);
+      throw new Error("Failed to fetch: Backend server may not be running. Please start it with 'npm run backend' or 'cd backend && npm start'");
+    }
+    throw error;
   }
-
-  const data = await response.json();
-
-  return data.map((item: any) => ({
-    id: item.id,
-    company: item.company,
-    position: item.position,
-    status: item.status,
-    dateApplied: new Date(item.dateApplied),
-    notes: item.notes || "",
-  }));
 };
 
 // Simple authentication functions for demo purposes

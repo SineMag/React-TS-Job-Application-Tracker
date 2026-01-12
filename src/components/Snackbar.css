@@ -12,52 +12,51 @@
   z-index: 1000;
   font-size: 14px;
   font-weight: 500;
-  animation: fadein 0.5s, fadeout 0.5s forwards;
+  animation: fadein 0.5s;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #f5f5f5 !important; /* Pale grey background - override any other styles */
 }
 
 .snackbar.snackbar-success {
-  background-color: #f5f5f5; /* Changed to pale grey */
-  border-left: 4px solid #bdbdbd; /* Changed to pale grey */
-  color: #424242; /* Changed to dark grey */
+  background-color: #f5f5f5; /* Pale grey */
+  border-left: 4px solid #bdbdbd;
+  color: #424242;
 }
 
 .snackbar.snackbar-error {
-  background-color: #f5f5f5;
-  border-left: 4px solid #bdbdbd; /* Changed to a slightly darker, but still neutral grey */
+  background-color: #f5f5f5; /* Pale grey */
+  border-left: 4px solid #bdbdbd;
   color: #424242;
 }
 
 .snackbar.snackbar-warning {
-  background-color: #fff3e0;
-  border-left: 4px solid #ff9800;
-  color: #e65100;
+  background-color: #f5f5f5; /* Pale grey */
+  border-left: 4px solid #bdbdbd;
+  color: #424242;
 }
 
 .snackbar.snackbar-info {
-  background-color: #e3f2fd;
-  border-left: 4px solid #2196f3;
-  color: #1565c0;
+  background-color: #f5f5f5; /* Pale grey */
+  border-left: 4px solid #bdbdbd;
+  color: #424242;
+}
+
+.snackbar-container {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.snackbar-container .snackbar {
+  pointer-events: auto;
+  margin-bottom: 10px;
 }
 
 .snackbar-message {
-  display: inline-block;
-  margin-right: 12px;
-}
-
-.snackbar-close {
-  background: none;
-  border: none;
-  color: inherit;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-  transition: opacity 0.3s;
-}
-
-.snackbar-close:hover {
-  opacity: 0.7;
+  display: block;
 }
 
 @keyframes fadein {

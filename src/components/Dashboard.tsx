@@ -71,8 +71,9 @@ export default function Dashboard() {
       );
     } catch (error) {
       console.error("Error adding application:", error);
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
       showNotification(
-        "Failed to add job application. Please try again.",
+        `Failed to add job application: ${errorMessage}`,
         "error"
       );
     }
@@ -94,8 +95,17 @@ export default function Dashboard() {
       );
       setEditingApplication(null);
       setShowForm(false);
+      showNotification(
+        `Successfully updated application for ${updatedApplication.position} at ${updatedApplication.company}!`,
+        "success"
+      );
     } catch (error) {
       console.error("Error updating application:", error);
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      showNotification(
+        `Failed to update job application: ${errorMessage}`,
+        "error"
+      );
     }
   };
 

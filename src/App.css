@@ -21,25 +21,44 @@
   align-items: center;
   justify-content: center;
   background: rgba(12,16,20,0.45);
-  z-index: 60;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 20px;
+  backdrop-filter: blur(2px);
 }
 .job-form-card{
   width: 640px;
   max-width: calc(100% - 48px);
+  max-height: calc(100vh - 40px);
   background: #fff;
   border-radius: 12px;
-  padding: 1.25rem;
+  padding: 2rem 1.5rem 1.5rem;
   box-shadow: 0 18px 50px rgba(10,12,14,0.25);
   position: relative;
+  overflow-y: auto;
+  margin: auto;
 }
 .form-close{
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   background: transparent;
   border: none;
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   cursor: pointer;
+  color: #666;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+.form-close:hover{
+  background: rgba(0,0,0,0.05);
+  color: #000;
 }
 
 /* make cards half-screen width and centered in grid */
@@ -61,11 +80,11 @@
   --primary-dark: #5a9b2f;
   --primary-light: #dbfa87;
   --accent: #82204a;
-  --dark: #111;
-  --light: #f9f9f9;
+  --dark: #212529;
+  --light: #ffffff;
   --white: #fff;
-  --gray: #ddd;
-  --gray-dark: #aaa;
+  --gray: #dee2e6;
+  --gray-dark: #adb5bd;
 }
 
 html,
@@ -74,7 +93,7 @@ body,
   width: 100%;
   height: 100%;
   font-family: "Inter", sans-serif;
-  background-color: var(--light);
+  background-color: #f8f9fa;
   color: var(--dark);
   line-height: 1.6;
 }
@@ -110,39 +129,21 @@ nav {
   align-items: center;
   padding: 1.5rem 2rem;
   font-size: 1.3rem;
-  background-color: var(--dark);
-  color: var(--white);
+  background-color: var(--white);
+  color: var(--dark);
+  border-bottom: 1px solid var(--gray);
 }
 
 .logo h2 {
   font-size: 2rem;
   font-weight: bold;
-  color: var(--primary-light);
-}
-
-.rightNav ul {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-}
-
-.rightNav ul li {
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.rightNav ul li:hover {
   color: var(--primary);
 }
 
 .rightNav a {
-  color: var(--white);
+  color: var(--dark);
   text-decoration: none;
   transition: color 0.3s;
-}
-
-.rightNav a:hover {
-  color: var(--primary);
 }
 
 /* Hero Section */
@@ -242,8 +243,9 @@ nav {
   text-align: center;
   margin-top: auto;
   font-size: 0.9rem;
-  color: var(--white);
-  background-color: var(--dark);
+  color: var(--dark);
+  background-color: var(--white);
+  border-top: 1px solid var(--gray);
 }
 
 /* Auth Pages */
@@ -258,7 +260,8 @@ nav {
   padding: 1rem 2rem;
   display: flex;
   justify-content: flex-start;
-  background-color: var(--dark);
+  background-color: var(--white);
+  border-bottom: 1px solid var(--gray);
 }
 
 .leftArrow {
@@ -266,12 +269,12 @@ nav {
   border: none;
   cursor: pointer;
   font-size: 2rem;
-  color: var(--white);
+  color: var(--primary);
   transition: color 0.3s;
 }
 
 .leftArrow:hover {
-  color: var(--primary);
+  color: var(--primary-dark);
 }
 
 .authForm {
@@ -318,6 +321,8 @@ nav {
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s;
+  background-color: #fff;
+  color: var(--dark);
 }
 
 .formGroup input:focus {
@@ -386,7 +391,8 @@ nav {
   padding: 1rem 2rem;
   display: flex;
   justify-content: flex-start;
-  background-color: var(--dark);
+  background-color: var(--white);
+  border-bottom: 1px solid var(--gray);
 }
 
 .signUpForm {
@@ -472,12 +478,12 @@ nav {
   align-items: center;
   border-bottom: 2px solid var(--gray);
   padding: 1rem 2rem;
-  background-color: var(--dark);
-  color: var(--white);
+  background-color: var(--white);
+  color: var(--dark);
 }
 
 .dashboard nav h2 {
-  color: var(--primary-light);
+  color: var(--primary);
 }
 
 .dashboard nav > div {
@@ -497,7 +503,7 @@ nav {
 }
 
 .dashboard nav a {
-  color: var(--white);
+  color: var(--dark);
   text-decoration: none;
   transition: color 0.3s;
 }
@@ -509,7 +515,7 @@ nav {
 .dashboard nav button {
   background: none;
   border: none;
-  color: var(--white);
+  color: var(--dark);
   cursor: pointer;
   font-size: 1rem;
   transition: color 0.3s;
@@ -555,6 +561,8 @@ nav {
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s;
+  background-color: #fff;
+  color: var(--dark);
 }
 
 .dashboard input:focus {
@@ -892,6 +900,8 @@ nav {
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s;
+  background-color: #fff;
+  color: var(--dark);
 }
 
 .searchInput:focus {
@@ -1127,6 +1137,8 @@ nav {
   font-size: 1rem;
   font-family: inherit;
   transition: all 0.3s;
+  background-color: #fff;
+  color: var(--dark);
 }
 
 .formGroup textarea {
@@ -1142,14 +1154,17 @@ nav {
   box-shadow: 0 0 0 3px rgba(125, 187, 66, 0.1);
 }
 
-.formActions {
+.formActions,
+.form-actions {
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
 }
 
 .submitButton,
-.cancelButton {
+.cancelButton,
+.btn.primary,
+.btn.ghost {
   flex: 1;
   padding: 1rem;
   border: none;
@@ -1160,23 +1175,27 @@ nav {
   transition: all 0.3s ease;
 }
 
-.submitButton {
+.submitButton,
+.btn.primary {
   background-color: var(--primary);
   color: var(--white);
 }
 
-.submitButton:hover {
+.submitButton:hover,
+.btn.primary:hover {
   background-color: var(--primary-dark);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(125, 187, 66, 0.3);
 }
 
-.cancelButton {
+.cancelButton,
+.btn.ghost {
   background-color: var(--gray);
   color: var(--dark);
 }
 
-.cancelButton:hover {
+.cancelButton:hover,
+.btn.ghost:hover {
   background-color: var(--gray-dark);
 }
 
@@ -1243,16 +1262,17 @@ nav {
 
 /* Header Styling */
 .header {
-  background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
+  background: var(--white);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--gray);
 }
 
 .header h2 {
-  color: var(--primary-light);
+  color: var(--primary);
   font-size: 1.5rem;
   margin: 0;
 }
@@ -1264,7 +1284,7 @@ nav {
 }
 
 .headerNav a {
-  color: var(--white);
+  color: var(--dark);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
@@ -1292,12 +1312,13 @@ nav {
 
 /* Footer Styling */
 .footer {
-  background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
-  color: var(--white);
+  background: var(--white);
+  color: var(--dark);
   text-align: center;
   padding: 2rem;
   margin-top: auto;
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+  border-top: 1px solid var(--gray);
 }
 
 .footer p {
@@ -1509,5 +1530,26 @@ nav {
   .statusBadge {
     font-size: 0.75rem;
     padding: 0.4rem 0.8rem;
+  }
+
+  .job-form-card {
+    width: calc(100% - 24px);
+    max-width: 100%;
+    padding: 1.5rem 1rem;
+    max-height: calc(100vh - 20px);
+  }
+
+  .form-backdrop {
+    padding: 10px;
+  }
+
+  .form-actions,
+  .formActions {
+    flex-direction: column;
+  }
+
+  .form-actions button,
+  .formActions button {
+    width: 100%;
   }
 }

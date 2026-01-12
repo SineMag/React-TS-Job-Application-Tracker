@@ -34,7 +34,14 @@ export const NotificationProvider = ({ children }: NotificationProviderProps) =>
     const id = Date.now().toString() + Math.random().toString(36).substr(2, 9);
     const notification: Notification = { id, message, type, duration };
     
-    setNotifications(prev => [...prev, notification]);
+    setNotifications(prev => {
+      // Prevent duplicate notifications with the same message
+      const isDuplicate = prev.some(n => n.message === message && n.type === type);
+      if (isDuplicate) {
+        return prev;
+      }
+      return [...prev, notification];
+    });
 
     // Auto-remove notification after duration
     if (duration > 0) {

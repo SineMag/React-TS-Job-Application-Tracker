@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import type { JobApplication } from "../types";
-import React from "react";
+import type React from "react";
 
 type Props = {
   onClose?: () => void;
   onSubmit: (
     application: JobApplication | Omit<JobApplication, "id">
   ) => void | Promise<void>;
-  onCancel: () => void;
+  onCancel?: () => void;
   initialData?: JobApplication | null;
 };
 
@@ -39,7 +39,16 @@ export default function JobApplicationForm({
     }
   }, [initialData]);
 
+  // Prevent body scroll when form is open
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   const handleCancel = () => {
+    onCancel?.();
     onClose?.();
   };
 

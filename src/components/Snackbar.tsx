@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNotification, type Notification } from '../contexts/NotificationContext';
+import './Snackbar.css';
 
 interface SnackbarProps {
   notification: Notification;
@@ -37,13 +38,6 @@ const SnackbarItem = ({ notification }: SnackbarProps) => {
   return (
     <div className={getSnackbarClass(notification.type)}>
       <span className="snackbar-message">{notification.message}</span>
-      <button 
-        className="snackbar-close"
-        onClick={() => removeNotification(notification.id)}
-        aria-label="Close notification"
-      >
-        ×
-      </button>
     </div>
   );
 };

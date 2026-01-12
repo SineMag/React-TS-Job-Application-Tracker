@@ -54,6 +54,70 @@
       "userId": "1767958343322",
       "createdAt": "2026-01-09T11:45:46.112Z",
       "updatedAt": "2026-01-09T11:45:46.112Z"
+    },
+    {
+      "position": "Test",
+      "company": "Test",
+      "notes": "test",
+      "userId": "1",
+      "status": "Applied",
+      "dateApplied": "2025-01-01",
+      "id": "g4RsN-X"
+    },
+    {
+      "company": "gdd",
+      "position": "dddsd",
+      "status": "Applied",
+      "dateApplied": "2026-01-12T00:00:00.000Z",
+      "notes": "",
+      "userId": "1768161884080",
+      "createdAt": "2026-01-12T00:30:52.049Z",
+      "updatedAt": "2026-01-12T00:31:04.206Z",
+      "id": "EK93veJ"
+    },
+    {
+      "company": "sdss",
+      "position": "dddd",
+      "status": "Applied",
+      "dateApplied": "2026-01-12T00:00:00.000Z",
+      "notes": "",
+      "userId": "1768176095356",
+      "createdAt": "2026-01-12T00:34:01.658Z",
+      "updatedAt": "2026-01-12T00:34:01.658Z",
+      "id": "sNlb4-I"
+    },
+    {
+      "company": "dsfds",
+      "position": "dsds",
+      "status": "Applied",
+      "dateApplied": "2026-01-12T00:00:00.000Z",
+      "notes": "",
+      "userId": "1768161884080",
+      "createdAt": "2026-01-12T00:34:36.009Z",
+      "updatedAt": "2026-01-12T00:34:36.009Z",
+      "id": "Y1wRDdt"
+    },
+    {
+      "company": "gfhfg",
+      "position": "ghgf",
+      "status": "Applied",
+      "dateApplied": "2026-01-12T00:00:00.000Z",
+      "notes": "",
+      "userId": "1768161884080",
+      "createdAt": "2026-01-12T00:38:06.705Z",
+      "updatedAt": "2026-01-12T00:38:06.705Z",
+      "id": "cfuhQZe"
+    },
+    {
+      "company": "bfdg",
+      "position": "gsdg",
+      "status": "Applied",
+      "dateApplied": "2026-01-12T00:00:00.000Z",
+      "notes": "",
+      "userId": "1768161884080",
+      "createdAt": "2026-01-12T00:39:58.013Z",
+      "updatedAt": "2026-01-12T00:39:58.013Z",
+      "id": "eBL0AOj"
     }
   ],
   "users": [

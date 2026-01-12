@@ -11,7 +11,8 @@
     "start": "npm run build && node server.js",
     "postinstall": "npm run build",
     "json-server": "json-server --watch db.json --port 3001",
-    "dev:full": "concurrently \"npm run json-server\" \"npm run dev\""
+    "backend": "npm start --prefix backend",
+    "dev:full": "concurrently \"npm run backend\" \"npm run dev\""
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
