@@ -11,7 +11,7 @@ export default function Header({ showLogout = false }: HeaderProps) {
   const handleLogout = async () => {
     try {
       await logOut();
-      // The AuthProvider will handle the state update and redirect
+      window.location.href = '/';
     } catch (error) {
       console.error('Error logging out:', error);
     }

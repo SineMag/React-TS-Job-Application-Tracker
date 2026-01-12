@@ -4,9 +4,6 @@
 
 A modern, full-stack React TypeScript application for tracking job applications with JSON Server backend. Built with Vite, React Router, and localStorage authentication for simplicity and ease of development.
 
-## 🚀 Live Demo
-
-**Live Application**: https://job-application-tracker-9b8c5.web.app
 
 ## ✨ Features
 
@@ -114,15 +111,33 @@ Root Files:
     └── vite.svg
 ```
 
-## 🎯 Usage
+## 🎯 Getting Started
 
-### Getting Started
-1. **Sign Up**: Create a new account with any email and password (stored locally) 📝
-2. **Login**: Access your personal dashboard 🏠
-3. **Add Applications**: Click "Add New Application" to track a job application ➕
-4. **Search & Filter**: Use the search bar and filters to find specific applications 🔍
-5. **Manage Applications**: Edit, update status, or delete applications ✏️
-6. **Logout**: Securely logout when done 🚪
+### 1. Sign Up
+- Navigate to the [Sign-Up Page](https://job-application-tracker-9b8c5.web.app/signup).
+- Create a new account with any email and password.
+- All data is stored locally in your browser's localStorage.
+
+### 2. Login
+- After signing up, you will be redirected to the [Login Page](https://job-application-tracker-9b8c5.web.app/login).
+- Access your personal dashboard by entering your credentials.
+
+### 3. Add Applications
+- Once logged in, you will be taken to your dashboard.
+- Click "Add New Application" to start tracking a job application.
+- Fill in the details and save.
+
+### 4. Search & Filter
+- Use the search bar to find applications by company or position.
+- Use the filter dropdown to see applications with a specific status.
+
+### 5. Manage Applications
+- Click the "Edit" or "Delete" button on any application to manage it.
+- You can also update the status of an application from the dropdown menu.
+
+### 6. Logout
+- Click the "Logout" button in the header to securely log out.
+- You will be redirected to the home page.
 
 ### Application Statuses
 - **Applied**: Initial application submitted

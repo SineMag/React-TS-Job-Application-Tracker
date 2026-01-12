@@ -118,6 +118,17 @@
       "createdAt": "2026-01-12T00:39:58.013Z",
       "updatedAt": "2026-01-12T00:39:58.013Z",
       "id": "eBL0AOj"
+    },
+    {
+      "company": "dsdd",
+      "position": "dds",
+      "status": "Applied",
+      "dateApplied": "2026-01-12T00:00:00.000Z",
+      "notes": "",
+      "userId": "1768179086347",
+      "createdAt": "2026-01-12T00:51:39.829Z",
+      "updatedAt": "2026-01-12T00:51:39.829Z",
+      "id": "ftjKEtm"
     }
   ],
   "users": [
