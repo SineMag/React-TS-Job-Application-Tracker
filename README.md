@@ -51,15 +51,22 @@ npm install
 
 ### 3. Start the Application
 
+#### Option A: Run Both Servers Together (Recommended) 🚀
 ```bash
-# Terminal 1 - Start JSON Server backend
+npm run dev:full
+```
+This will start both JSON Server (port 3001) and React app (port 5174) simultaneously.
+
+#### Option B: Run Servers Separately
+```bash
+# Terminal 1 - Start JSON Server
 npm run json-server
 
 # Terminal 2 - Start React app
 npm run dev
 ```
 
-### 4. Access the Application
+### 4. Access the Application (expected results)
 - **Frontend**: http://localhost:5174
 - **JSON Server API**: http://localhost:3001
 - **API Endpoints**:
