@@ -147,7 +147,7 @@ Root Files:
 - **Rejected**: Application rejected
 
 ## 🚀 Deployment
-chore: clean header nav and docs for render deployment
+
 ### Deploy to Render.com (Frontend + Backend)
 
 You can host both the JSON Server backend and the React frontend on Render so that the app works without running JSON Server manually.
