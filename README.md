@@ -146,7 +146,7 @@ Root Files:
 - **Offer**: Job offer received
 - **Rejected**: Application rejected
 
-## 🚀 Deployment
+## 🚀 Deployment (render.com)
 
 ### Deploy to Render.com (Frontend + Backend)
 
