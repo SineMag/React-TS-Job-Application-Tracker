@@ -16,6 +16,7 @@ import Dashboard from "./components/Dashboard";
 import Error404 from "./pages/Error404";
 import JobDetails from "./pages/JobDetails";
 import Snackbar from "./components/Snackbar";
+import ContactPage from "./pages/ContactPage";
 
 function AppContent() {
   const location = useLocation();
@@ -101,6 +102,7 @@ function AppContent() {
               </div>
             }
           />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LogInPage />} />
           <Route path="/dashboard" element={<Dashboard />} />

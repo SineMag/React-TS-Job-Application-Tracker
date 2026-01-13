@@ -11,34 +11,29 @@ export default function Header({ showLogout = false }: HeaderProps) {
   const handleLogout = async () => {
     try {
       await logOut();
-      window.location.href = '/';
+      window.location.href = "/";
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
     }
   };
 
   return (
-    <nav>
+    <nav className="header">
       <div className="logo">
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <h2>JobTrack</h2>
         </Link>
       </div>
       <div className="rightNav">
-        <ul style={{ listStyleType: "none", display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          {showLogout ? (
-            <>
-              <li><Link to="/dashboard">Dashboard</Link></li>
-              <li><button className="logoutButton" onClick={handleLogout}>Logout</button></li>
-            </>
-          ) : (
-            <>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/about">About</Link></li>
-              <li><Link to="/contact">Contact Us</Link></li>
-            </>
-          )}
-        </ul>
+        {showLogout && (
+          <ul className="headerNavList">
+            <li>
+              <button className="logoutButton" onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
+          </ul>
+        )}
       </div>
     </nav>
   );

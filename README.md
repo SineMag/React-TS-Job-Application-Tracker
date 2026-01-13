@@ -2,7 +2,7 @@
 
 # 📋 Job Application Tracker
 
-A modern, full-stack React TypeScript application for tracking job applications with JSON Server backend. Built with Vite, React Router, and localStorage authentication for simplicity and ease of development.
+A modern, full-stack React TypeScript application for tracking job applications with a lightweight JSON Server backend. Built with Vite, React Router, and localStorage authentication for simplicity and ease of development. The frontend and backend can be deployed together on Render.com so you can use the app without running JSON Server manually.
 
 
 ## ✨ Features
@@ -22,9 +22,9 @@ A modern, full-stack React TypeScript application for tracking job applications 
 - **Frontend**: React 19, TypeScript, Vite
 - **Routing**: React Router DOM v7
 - **Styling**: CSS3 with Flexbox/Grid
-- **Backend**: JSON Server (REST API)
+- **Backend**: JSON Server (REST API) running as a Node service
 - **Authentication**: localStorage (for demo purposes)
-- **Deployment**: Firebase Hosting (frontend only)
+- **Deployment**: Render.com (frontend + backend)
 - **Icons**: React Icons
 - **Build Tool**: Vite
 
@@ -34,7 +34,7 @@ Before you begin, ensure you have the following installed:
 - **Node.js** (v18 or higher)
 - **npm** or **yarn**
 - **Git**
-- **Firebase CLI** (for deployment)
+- A **Render.com account** (for cloud deployment)
 
 ## 🔧 Installation & Setup
 
@@ -51,18 +51,11 @@ npm install
 
 ### 3. Start the Application
 
-#### Option A: Run Both Servers Together (Recommended) 🚀
 ```bash
-npm run dev:full
-```
-This will start both JSON Server (port 3001) and React app (port 5174) simultaneously.
-
-#### Option B: Run Servers Separately
-```bash
-# Terminal 1 - Start JSON Server
+# Terminal 1 - Start JSON Server backend
 npm run json-server
 
-# Terminal 2 - Start React App
+# Terminal 2 - Start React app
 npm run dev
 ```
 
@@ -147,105 +140,81 @@ Root Files:
 - **Rejected**: Application rejected
 
 ## 🚀 Deployment
+chore: clean header nav and docs for render deployment
+### Deploy to Render.com (Frontend + Backend)
 
-### Deploy to Firebase Hosting (Frontend Only)
-1. **Build the project**:
+You can host both the JSON Server backend and the React frontend on Render so that the app works without running JSON Server manually.
+
+#### 1. Backend (API) service
+
+1. Push your code to GitHub (or another Git provider).
+2. In the Render dashboard, create a **New Web Service** and connect this repository.
+3. Set the **Root Directory** to `backend`.
+4. Set the **Build Command** to:
    ```bash
-   npm run build
+   npm install
+   ```
+5. Set the **Start Command** to:
+   ```bash
+   npm start
+   ```
+6. Deploy the service and note the backend URL, e.g. `https://your-backend.onrender.com`.
+
+#### 2. Frontend service
+
+1. In Render, create a **New Static Site** and connect the same repository.
+2. Leave the **Root Directory** empty (use the repo root).
+3. Set the **Build Command** to:
+   ```bash
+   npm install && npm run build
+   ```
+4. Set the **Publish Directory** to:
+   ```bash
+   dist
+   ```
+5. Add an environment variable to the static site:
+   - Key: `VITE_API_URL`
+   - Value: your backend URL (for example `https://your-backend.onrender.com`)
+6. Deploy the static site.
+
+Once deployed, the frontend will call the Render backend directly using `VITE_API_URL`, and you will not need to run JSON Server manually.
+
+### Using the hosted backend from local development
+
+If you prefer to use the hosted backend while running the frontend locally:
+
+1. Create a `.env` file in the project root:
+   ```bash
+   VITE_API_URL=https://your-backend.onrender.com
+   ```
+2. Start the frontend only:
+   ```bash
+   npm run dev
    ```
 
-2. **Login to Firebase**:
-   ```bash
-   firebase login
-   ```
-
-3. **Deploy**:
-   ```bash
-   firebase deploy
-   ```
-
-Your app will be deployed to: `https://your-project-id.web.app`
-
-### Deploy to Other Platforms
-The built files in the `dist/` folder can be deployed to any static hosting service:
-- **Netlify** 🌐
-- **Vercel** ⚡
-- **GitHub Pages** 📄
-- **AWS S3** ☁️
+The app will then use the Render backend instead of a locally running JSON Server.
 
 ### 🔧 Production Considerations
 For production deployment, you'll need to:
 - Replace JSON Server with a proper backend (Node.js/Express, Python/Django, etc.)
 - Implement proper authentication (JWT, OAuth, etc.)
-- Use a production database (PostgreSQL, MongoDB, etc.)
-- Set up proper CORS configuration
-
-## 🔒 Security & Data
-
-- **Authentication**: Simple localStorage-based auth (for development only)
-- **Data Storage**: Local JSON file via JSON Server
-- **HTTPS**: Enabled when deployed to Firebase Hosting
-- **Input Validation**: Form inputs are validated on the client side
-- **Development Focus**: This setup is optimized for development and learning
-
-## 🎨 Customization
-
-### Styling
-- Modify `src/App.css` for global styles
-- Component-specific styles are included in the main CSS file
-- Color scheme can be changed by updating CSS custom properties
-
-### Adding Features
-- New components go in `src/components/`
-- API functions in `src/services/api.ts`
-- Types in `src/types.ts`
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **JSON Server Not Starting**:
-   ```
-   Error: Cannot find module 'json-server'
-   ```
-   **Solution**: Run `npm install` to install all dependencies
-
-2. **Port Already in Use**:
-   ```
-   Error: Port 3001 is already in use
-   ```
-   **Solution**: Kill the process using the port or change the port in package.json
-
-3. **API Connection Issues**:
-   - Ensure JSON Server is running on port 3001
-   - Check that `http://localhost:3001/jobApplications` returns data
-   - Verify CORS settings if needed
-
-4. **Build Errors**:
-   - Ensure all dependencies are installed: `npm install`
-   - Check TypeScript errors: `npm run build`
-
-5. **Authentication Issues**:
-   - Clear localStorage: `localStorage.clear()` in browser console
-   - Check browser's Application/Storage tab for stored data
 
 ## 📝 Available Scripts
 
 ```bash
 # Development
 npm run dev              # Start React development server only
-npm run json-server      # Start JSON Server only  
-npm run dev:full         # Start both servers simultaneously (recommended)
+npm run json-server      # Start JSON Server backend only
+npm run dev:full         # Start both frontend and backend simultaneously (recommended)
+
+# Backend (from the root project)
+npm run backend          # Start JSON Server backend from the /backend folder
 
 # Production
 npm run build            # Build for production
 npm run preview          # Preview production build
 npm run lint             # Run ESLint
-
-# Deployment
-firebase login           # Login to Firebase
-firebase deploy          # Deploy to Firebase Hosting
-firebase serve           # Test Firebase hosting locally
+npm start                # Build and serve the production bundle with Express
 ```
 
 ## 🤝 Contributing
